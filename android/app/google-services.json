@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1081356236575",
+    "project_id": "esurvey-ee4c3",
+    "storage_bucket": "esurvey-ee4c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081356236575:android:12092c7281a0b77dcde22a",
+        "android_client_info": {
+          "package_name": "com.example.survey_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081356236575-0vdpbirpao6246m2epmeasn0r74q5va4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkFiTMLGcFic9hR2AwLPRcDWV_Q2wF3tQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081356236575-0vdpbirpao6246m2epmeasn0r74q5va4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
