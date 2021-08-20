@@ -22,5 +22,6 @@
     "sign_in":"Sign In",
     "sign_up":"Sign Up",
     "signup_success":"Successfully signed up, please Sign In",
-    "user_name_hint":"User Name"
+    "user_name_hint":"User Name",
+    "chose_id_recognition":"chose your id recognition"
   }

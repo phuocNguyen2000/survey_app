@@ -1,4 +1,3 @@
-
 import 'package:http/http.dart' as http;
 import 'package:survey_app/generated/l10n.dart';
 import 'dart:async';
@@ -7,15 +6,13 @@ import 'dart:io';
 
 import 'custom_exception.dart';
 
-
 class ApiProvider {
- 
   Future<Map<String, dynamic>> post(String url, dynamic body,
       {String token = ''}) async {
     dynamic responseJson;
     try {
       final dynamic response =
-          await http.post(Uri.encodeFull(url), body: body, headers: {
+          await http.post(Uri.parse(Uri.encodeFull(url)), body: body, headers: {
         'content-type': 'Application/Json',
         "Access-Control_Allow_Origin": "*",
         'authorization': 'Bearer ' + token,
@@ -35,6 +32,7 @@ class ApiProvider {
     }
     return responseJson;
   }
+
   dynamic _response(http.Response response) {
     switch (response.statusCode) {
       case 200:
@@ -53,5 +51,4 @@ class ApiProvider {
             'Error occured while Communication with Server with StatusCode : ${response.statusCode}');
     }
   }
-
 }

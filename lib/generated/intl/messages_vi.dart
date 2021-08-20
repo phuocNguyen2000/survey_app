@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "already_user":
             MessageLookupByLibrary.simpleMessage("Người dùng đã tồn tại"),
         "check_domain": MessageLookupByLibrary.simpleMessage("Kiểm Tra"),
+        "chose_id_recognition":
+            MessageLookupByLibrary.simpleMessage("Chọn ảnh căn cước công dân"),
         "close_app": MessageLookupByLibrary.simpleMessage("Đóng ứng dụng"),
         "database_does_not_exist":
             MessageLookupByLibrary.simpleMessage("Database không tồn tại"),

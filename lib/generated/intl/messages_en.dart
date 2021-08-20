@@ -26,6 +26,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Add contact successfully"),
         "already_user": MessageLookupByLibrary.simpleMessage("Already a user"),
         "check_domain": MessageLookupByLibrary.simpleMessage("Check Domain"),
+        "chose_id_recognition":
+            MessageLookupByLibrary.simpleMessage("chose your id recognition"),
         "close_app": MessageLookupByLibrary.simpleMessage("Close app"),
         "database_does_not_exist":
             MessageLookupByLibrary.simpleMessage("Database does not exist"),

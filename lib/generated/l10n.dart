@@ -279,6 +279,16 @@ class S {
       args: [],
     );
   }
+
+  /// `chose your id recognition`
+  String get chose_id_recognition {
+    return Intl.message(
+      'chose your id recognition',
+      name: 'chose_id_recognition',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
