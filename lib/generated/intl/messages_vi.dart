@@ -45,6 +45,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Không có kết nối,vui lòng thử lại"),
         "no_results": MessageLookupByLibrary.simpleMessage("Không có kết quả"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
+        "password_again":
+            MessageLookupByLibrary.simpleMessage("Nhập lại mật khẩu"),
         "password_hint": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
         "please_wait":
             MessageLookupByLibrary.simpleMessage("Vui lòng chờ trong giây lát"),

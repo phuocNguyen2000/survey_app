@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 import 'package:survey_app/screens/login_screen.dart';
 import 'package:path/path.dart';
 import 'dart:io';
@@ -12,6 +13,7 @@ import 'package:survey_app/services/push_notification.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+import 'controllers/authenticate_controller.dart';
 import 'generated/l10n.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -27,6 +29,8 @@ AndroidNotificationChannel? channel;
 FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 
 void main() async {
+  AuthenticateController authenticateController =
+      Get.put(AuthenticateController());
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
@@ -74,8 +78,6 @@ void main() async {
       GlobalCupertinoLocalizations.delegate,
     ],
     supportedLocales: S.delegate.supportedLocales,
-    home: SignUpScreen(
-      title: "ok",
-    ),
+    home: LogInScreen(),
   ));
 }

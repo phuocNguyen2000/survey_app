@@ -1,11 +1,4 @@
 class Env {
-  Env(this.baseUrl);
-
-  final String baseUrl;
-}
-
-mixin EnvValue {
-  static final Env development = Env('https://demo.vuahethong.com');
-  static final Env staging = Env('https://demo.vuahethong.com');
-  static final Env production = Env('https://demo.vuahethong.com');
+  static String baseUrl =
+      "https://9518-2001-ee0-5758-4eb0-7836-d1db-3146-9afa.ngrok.io";
 }

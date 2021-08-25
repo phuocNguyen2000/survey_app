@@ -289,6 +289,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Enter the password again`
+  String get password_again {
+    return Intl.message(
+      'Enter the password again',
+      name: 'password_again',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

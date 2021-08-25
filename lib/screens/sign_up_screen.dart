@@ -7,7 +7,12 @@ import 'package:path/path.dart';
 import 'dart:io';
 import 'package:async/async.dart';
 import 'package:camera/camera.dart';
+import 'package:survey_app/base_color.dart';
 import 'package:survey_app/generated/l10n.dart';
+import 'package:survey_app/services/hex_color.dart';
+import 'package:survey_app/widgets/input_container.dart';
+import 'package:survey_app/widgets/logo.dart';
+import 'package:survey_app/widgets/s_text_field.dart';
 import 'package:video_player/video_player.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -41,6 +46,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController maxWidthController = TextEditingController();
   final TextEditingController maxHeightController = TextEditingController();
   final TextEditingController qualityController = TextEditingController();
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController rePasswordController = TextEditingController();
 
   Future<void> _playVideo(XFile? file) async {
     if (file != null && mounted) {
@@ -167,7 +177,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       return retrieveError;
     }
     if (_imageFileList != null) {
-      return Icon(Icons.add_task_sharp, color: Color.fromARGB(100, 0, 0, 205));
+      return Icon(Icons.add_task_sharp, color: BaseColor.primary);
     } else if (_pickImageError != null) {
       return Text(
         'Pick image error: $_pickImageError',
@@ -212,113 +222,51 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: BaseColor.background,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              "iSurvey",
-              style: TextStyle(
-                  color: Color.fromARGB(100, 0, 0, 205), fontSize: 50),
-            ),
+            Logo(),
             Text(
               "Sign Up",
-              style: TextStyle(
-                  color: Color.fromARGB(100, 0, 0, 205), fontSize: 40),
+              style: TextStyle(color: BaseColor.primary, fontSize: 40),
             ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+            InputContainer(
+              child: XTextField(
+                icon: Icons.email,
+                hintText: S.current.email_hint,
+                controller: emailController,
               ),
-              child: TextField(
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(vertical: 8),
-                  prefixIcon: Icon(Icons.account_box_outlined,
-                      color: Color.fromARGB(100, 0, 0, 205)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Color.fromARGB(100, 0, 0, 205), width: 2),
-                      borderRadius: BorderRadius.circular(10)),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10)),
-                ),
-              ),
-              width: size.width * 0.8,
+              color: Colors.white,
             ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+            InputContainer(
+              child: XTextField(
+                icon: Icons.account_box_outlined,
+                hintText: S.current.user_name_hint,
+                controller: userNameController,
               ),
-              child: TextField(
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(vertical: 8),
-                  prefixIcon: Icon(Icons.account_box_outlined,
-                      color: Color.fromARGB(100, 0, 0, 205)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Color.fromARGB(100, 0, 0, 205), width: 2),
-                      borderRadius: BorderRadius.circular(10)),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10)),
-                ),
-              ),
-              width: size.width * 0.8,
+              color: Colors.white,
             ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+            InputContainer(
+              child: XTextField(
+                icon: Icons.lock,
+                hintText: S.current.password_hint,
+                controller: passwordController,
               ),
-              child: TextField(
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(vertical: 8),
-                  prefixIcon: Icon(Icons.account_box_outlined,
-                      color: Color.fromARGB(100, 0, 0, 205)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Color.fromARGB(100, 0, 0, 205), width: 2),
-                      borderRadius: BorderRadius.circular(10)),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10)),
-                ),
-              ),
-              width: size.width * 0.8,
+              color: Colors.white,
             ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+            InputContainer(
+              child: XTextField(
+                icon: Icons.password_sharp,
+                controller: rePasswordController,
+                hintText: S.current.password_again,
               ),
-              child: TextField(
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(vertical: 8),
-                  prefixIcon: Icon(Icons.account_box_outlined,
-                      color: Color.fromARGB(100, 0, 0, 205)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Color.fromARGB(100, 0, 0, 205), width: 2),
-                      borderRadius: BorderRadius.circular(10)),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10)),
-                ),
-              ),
-              width: size.width * 0.8,
+              color: Colors.white,
             ),
             GestureDetector(
                 onTap: () {
@@ -370,6 +318,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         : _handlePreview(),
                   ),
                   width: size.width * 0.8,
+                  height: 50,
+                )),
+            GestureDetector(
+                onTap: () {},
+                child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                  decoration: BoxDecoration(
+                      color: BaseColor.background,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                          color: BaseColor.primary,
+                          style: BorderStyle.solid,
+                          width: 3)),
+                  child: Center(
+                      child: Text(
+                    S.current.sign_up,
+                    style: TextStyle(color: BaseColor.primary, fontSize: 25),
+                  )),
+                  width: size.width * 0.3,
                   height: 50,
                 )),
           ],

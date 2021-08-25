@@ -44,6 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "No internet connection, please try again"),
         "no_results": MessageLookupByLibrary.simpleMessage("No results"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
+        "password_again":
+            MessageLookupByLibrary.simpleMessage("Enter the password again"),
         "password_hint": MessageLookupByLibrary.simpleMessage("Password"),
         "please_wait": MessageLookupByLibrary.simpleMessage("Please Wait..."),
         "retry": MessageLookupByLibrary.simpleMessage("Retry"),
