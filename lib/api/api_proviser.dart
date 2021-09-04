@@ -1,6 +1,10 @@
 import 'package:crypto/crypto.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:survey_app/controllers/authenticate/authenticate_state.dart';
+import 'package:survey_app/controllers/authenticate/authenticate_controller.dart';
 import 'package:survey_app/generated/l10n.dart';
+import 'package:survey_app/resources/auth_repository.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -12,15 +16,20 @@ class ApiProvider {
     return md5.convert(utf8.encode(input)).toString();
   }
 
+  AuthenticationState auth = Get.find();
   Future<Map<String, dynamic>> post(String url, dynamic body,
       {String token = ''}) async {
     dynamic responseJson;
+    AuthRepository authRepository = AuthRepository();
+    var token = await authRepository.fetchToken();
+
     try {
       final dynamic response =
           await http.post(Uri.parse(url), body: body, headers: {
         'content-type': 'application/json',
         "Access-Control_Allow_Origin": "*",
-        "Authorization": "basic"
+        "Authorization": "basic",
+        "X-Authorization": token
       });
       print(response.headers);
       responseJson = _response(response);

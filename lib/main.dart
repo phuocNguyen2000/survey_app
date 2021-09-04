@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:survey_app/resources/auth_repository.dart';
+import 'package:survey_app/routes/routes.dart';
+import 'package:survey_app/routes/routes_generator.dart';
 import 'package:survey_app/screens/login_screen.dart';
 import 'package:path/path.dart';
 import 'dart:io';
@@ -13,7 +16,7 @@ import 'package:survey_app/services/push_notification.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-import 'controllers/authenticate_controller.dart';
+import 'controllers/authenticate/authenticate_controller.dart';
 import 'generated/l10n.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -27,11 +30,14 @@ AndroidNotificationChannel? channel;
 
 /// Initialize the [FlutterLocalNotificationsPlugin] package.
 FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
-
+AuthenticateController authenticateController =
+    Get.put(AuthenticateController());
+RouteGenerator routeGenerator = RouteGenerator();
 void main() async {
-  AuthenticateController authenticateController =
-      Get.put(AuthenticateController());
   WidgetsFlutterBinding.ensureInitialized();
+  AuthRepository authRepository = AuthRepository();
+  var token = await authRepository.fetchToken();
+  
   await Firebase.initializeApp();
 
   // Set the background messaging handler early on, as a named top-level function
@@ -58,6 +64,7 @@ void main() async {
 
     /// Update the iOS foreground notification presentation options to allow
     /// heads up notifications.
+
     await FirebaseMessaging.instance
         .setForegroundNotificationPresentationOptions(
       alert: true,
@@ -69,7 +76,8 @@ void main() async {
   // var a = new PushNotificationsManager();
   // await a.init();
   // Get a specific camera from the list of available cameras.
-  runApp(MaterialApp(
+
+  runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     localizationsDelegates: [
       S.delegate,
@@ -79,5 +87,7 @@ void main() async {
     ],
     supportedLocales: S.delegate.supportedLocales,
     home: LogInScreen(),
+    onGenerateRoute: RouteGenerator.generateRoute,
+    initialRoute: Routes.home,
   ));
 }

@@ -15,6 +15,16 @@ class ApiController {
     }
   }
 
+  Future<Map<String, dynamic>> test() async {
+    ApiProvider apiProvider = ApiProvider();
+    try {
+      final String data = json.encode({"email": "e", "password": "e"});
+      return await apiProvider.post(baseUrl + '/test', data);
+    } on Error catch (e) {
+      throw Exception('Failed to load post ' + e.toString());
+    }
+  }
+
   Future<Map<String, dynamic>> signUp(
       String email, String password, String userName, String image64) async {
     ApiProvider apiProvider = ApiProvider();
