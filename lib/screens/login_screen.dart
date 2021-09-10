@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:survey_app/base_color.dart';
 import 'package:survey_app/controllers/api_controller.dart';
 import 'package:survey_app/controllers/authenticate/authenticate_controller.dart';
-import 'package:survey_app/controllers/login_controller.dart';
+import 'package:survey_app/controllers/login/login_controller.dart';
 import 'package:survey_app/generated/l10n.dart';
 import 'package:survey_app/resources/auth_repository.dart';
 

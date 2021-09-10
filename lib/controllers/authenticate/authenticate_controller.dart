@@ -5,9 +5,11 @@ import 'package:survey_app/resources/auth_repository.dart';
 import 'authenticate_state.dart';
 
 class AuthenticateController extends GetxController {
-  late AuthenticateService authenticateService;
+  final AuthenticateService authenticateService;
   final _authenticationStateStream = AuthenticationState().obs;
   AuthRepository authRepository = new AuthRepository();
+
+  AuthenticateController(this.authenticateService);
   AuthenticationState get state => _authenticationStateStream.value;
   @override
   void onInit() {
@@ -19,6 +21,11 @@ class AuthenticateController extends GetxController {
     final token =
         await authenticateService.signInWithEmailAndPassword(email, password);
     _authenticationStateStream.value = Authenticated(token: token);
+  }
+
+  void signOut() async {
+    await authenticateService.signOut();
+    _authenticationStateStream.value = UnAuthenticated();
   }
 
   void _getAuthenticatedUser() async {

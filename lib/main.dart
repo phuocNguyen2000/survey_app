@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:survey_app/controllers/authenticate/authenticate_service.dart';
+import 'package:survey_app/controllers/authenticate/authenticate_state.dart';
 import 'package:survey_app/resources/auth_repository.dart';
-import 'package:survey_app/routes/routes.dart';
 import 'package:survey_app/routes/routes_generator.dart';
+import 'package:survey_app/screens/home_screen.dart';
 import 'package:survey_app/screens/login_screen.dart';
-import 'package:path/path.dart';
-import 'dart:io';
-import 'package:async/async.dart';
-import 'package:camera/camera.dart';
-import 'package:survey_app/screens/sign_up_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:survey_app/services/push_notification.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:survey_app/screens/sign_up_screen.dart';
+import 'package:survey_app/screens/splash_screen.dart';
 
 import 'controllers/authenticate/authenticate_controller.dart';
 import 'generated/l10n.dart';
@@ -30,14 +29,14 @@ AndroidNotificationChannel? channel;
 
 /// Initialize the [FlutterLocalNotificationsPlugin] package.
 FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
-AuthenticateController authenticateController =
-    Get.put(AuthenticateController());
+
 RouteGenerator routeGenerator = RouteGenerator();
 void main() async {
+  Get.lazyPut(() => AuthenticateController(Get.put(FAuthenticateService())));
   WidgetsFlutterBinding.ensureInitialized();
   AuthRepository authRepository = AuthRepository();
   var token = await authRepository.fetchToken();
-  
+
   await Firebase.initializeApp();
 
   // Set the background messaging handler early on, as a named top-level function
@@ -77,17 +76,31 @@ void main() async {
   // await a.init();
   // Get a specific camera from the list of available cameras.
 
-  runApp(GetMaterialApp(
-    debugShowCheckedModeBanner: false,
-    localizationsDelegates: [
-      S.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-    ],
-    supportedLocales: S.delegate.supportedLocales,
-    home: LogInScreen(),
-    onGenerateRoute: RouteGenerator.generateRoute,
-    initialRoute: Routes.home,
-  ));
+  runApp(App());
+}
+
+class App extends GetWidget<AuthenticateController> {
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      localizationsDelegates: [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      debugShowCheckedModeBanner: false,
+      home: Obx(() {
+        if (controller.state is UnAuthenticated) {
+          return LogInScreen();
+        }
+
+        if (controller.state is Authenticated) {
+          return HomeScreen();
+        }
+        return SplashScreen();
+      }),
+    );
+  }
 }
