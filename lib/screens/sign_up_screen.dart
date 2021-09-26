@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,12 +9,14 @@ import 'dart:io';
 import 'package:async/async.dart';
 import 'package:camera/camera.dart';
 import 'package:survey_app/base_color.dart';
+import 'package:survey_app/controllers/api_controller.dart';
 import 'package:survey_app/generated/l10n.dart';
 import 'package:survey_app/services/hex_color.dart';
 import 'package:survey_app/widgets/input_container.dart';
 import 'package:survey_app/widgets/logo.dart';
 import 'package:survey_app/widgets/s_text_field.dart';
 import 'package:video_player/video_player.dart';
+import 'package:http/http.dart' as http;
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({
@@ -31,7 +34,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   set _imageFile(XFile? value) {
     _imageFileList = value == null ? null : [value];
-    print(base64Encode(File(_imageFileList!.first.path).readAsBytesSync()));
   }
 
   String? image64;
@@ -114,7 +116,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
             maxHeight: maxHeight,
             imageQuality: quality,
           );
-          print("1");
 
           setState(() {
             _imageFile = pickedFile;
@@ -219,6 +220,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
+  void signUp() async {
+    String email = emailController.text;
+    String password = passwordController.text;
+    String userName = userNameController.text;
+    String base64;
+    String? token = await FirebaseMessaging.instance.getToken();
+    if (!kIsWeb) {
+      base64 = base64Encode(File(_imageFileList!.first.path).readAsBytesSync());
+    } else {
+      http.Response response =
+          await http.get(Uri.parse(_imageFileList!.first.path));
+      base64 = base64Encode(response.bodyBytes);
+      print("base64" + base64);
+    }
+    ApiController apiController = ApiController();
+
+    apiController.signUp(email, password, token, userName, base64);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -321,7 +341,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 50,
                 )),
             GestureDetector(
-                onTap: () {},
+                onTap: () async {
+                  signUp();
+                },
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 10),
                   padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),

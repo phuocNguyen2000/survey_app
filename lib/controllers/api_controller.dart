@@ -25,12 +25,13 @@ class ApiController {
     }
   }
 
-  Future<Map<String, dynamic>> signUp(
-      String email, String password, String userName, String image64) async {
+  Future<Map<String, dynamic>> signUp(String email, String password,
+      String? device_key, String userName, String image64) async {
     ApiProvider apiProvider = ApiProvider();
     try {
       final String data = json.encode({
         "email": email,
+        "device_key": device_key,
         "password": password,
         "user_name": userName,
         "image64": image64

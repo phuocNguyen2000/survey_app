@@ -4,8 +4,4 @@ import 'package:survey_app/controllers/authenticate/authenticate_controller.dart
 
 class HomeController extends GetxController {
   final AuthenticateController _authenticationController = Get.find();
-
-  void signOut() {
-    _authenticationController.signOut();
-  }
 }

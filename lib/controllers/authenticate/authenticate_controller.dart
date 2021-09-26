@@ -1,26 +1,29 @@
 import 'package:get/get.dart';
 import 'package:survey_app/controllers/authenticate/authenticate_service.dart';
+import 'package:survey_app/models/user.dart';
 import 'package:survey_app/resources/auth_repository.dart';
 
-import 'authenticate_state.dart';
+import 'authentication.dart';
 
 class AuthenticateController extends GetxController {
   final AuthenticateService authenticateService;
   final _authenticationStateStream = AuthenticationState().obs;
   AuthRepository authRepository = new AuthRepository();
 
-  AuthenticateController(this.authenticateService);
   AuthenticationState get state => _authenticationStateStream.value;
+  AuthenticateController(this.authenticateService);
   @override
-  void onInit() {
+  void onInit() async {
+    Get.lazyPut(() => AuthenticationState());
     _getAuthenticatedUser();
     super.onInit();
   }
 
   Future<void> signIn(String email, String password) async {
-    final token =
+    final data =
         await authenticateService.signInWithEmailAndPassword(email, password);
-    _authenticationStateStream.value = Authenticated(token: token);
+    User user = User(name: "curUs", email: data.data.toString());
+    _authenticationStateStream.value = Authenticated(user: user);
   }
 
   void signOut() async {
@@ -31,12 +34,15 @@ class AuthenticateController extends GetxController {
   void _getAuthenticatedUser() async {
     _authenticationStateStream.value = AuthenticationLoading();
 
-    var token = await authRepository.test();
+    var data = await authenticateService.getCurrentToken();
 
-    if (token == null) {
+    if (data == "") {
+      print("data null");
       _authenticationStateStream.value = UnAuthenticated();
     } else {
-      _authenticationStateStream.value = Authenticated(token: token);
+      print("data ko null");
+      User user = User(name: "curUs", email: data.toString());
+      _authenticationStateStream.value = Authenticated(user: user);
     }
   }
 }

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:survey_app/api/response.dart';
+import 'package:survey_app/models/user.dart';
 
 class AuthenticationState extends Equatable {
   const AuthenticationState();
@@ -13,12 +13,12 @@ class AuthenticationLoading extends AuthenticationState {}
 class UnAuthenticated extends AuthenticationState {}
 
 class Authenticated extends AuthenticationState {
-  final DataResponse<String> token;
+  final User user;
 
-  Authenticated({required this.token});
+  Authenticated({required this.user});
 
   @override
-  List<Object> get props => [token];
+  List<Object> get props => [user];
 }
 
 class AuthenticationFailure extends AuthenticationState {

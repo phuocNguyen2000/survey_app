@@ -14,8 +14,8 @@ class FAuthenticateService extends AuthenticateService {
   @override
   Future<String?> getCurrentToken() async {
     // simulated delay
-    await Future.delayed(Duration(seconds: 2));
-    return null;
+    var token = await authRepository.fetchToken();
+    return token;
   }
 
   @override

@@ -23,6 +23,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
   print('Handling a background message ${message.messageId}');
+  print(message.data);
 }
 
 AndroidNotificationChannel? channel;
@@ -31,11 +32,51 @@ AndroidNotificationChannel? channel;
 FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 
 RouteGenerator routeGenerator = RouteGenerator();
+void initialize() async {
+  await Firebase.initializeApp();
+
+  // Set the background messaging handler early on, as a named top-level function
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  if (!kIsWeb) {
+    channel = const AndroidNotificationChannel(
+      'high_importance_channel', // id
+      'High Importance Notifications', // title
+      'This channel is used for important notifications.', // description
+      importance: Importance.high,
+    );
+
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+    /// Create an Android Notification Channel.
+    ///
+    /// We use this channel in the `AndroidManifest.xml` file to override the
+    /// default FCM channel to enable heads up notifications.
+    await flutterLocalNotificationsPlugin!
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel!);
+
+    /// Update the iOS foreground notification presentation options to allow
+    /// heads up notifications.
+
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+  }
+  var token = await FirebaseMessaging.instance.getToken();
+  print(token);
+  Get.lazyPut(
+    () => AuthenticateController(Get.put(FAuthenticateService())),
+  );
+}
+
 void main() async {
-  Get.lazyPut(() => AuthenticateController(Get.put(FAuthenticateService())));
+  initialize();
   WidgetsFlutterBinding.ensureInitialized();
-  AuthRepository authRepository = AuthRepository();
-  var token = await authRepository.fetchToken();
 
   await Firebase.initializeApp();
 
@@ -71,7 +112,8 @@ void main() async {
       sound: true,
     );
   }
-
+  String? token = await FirebaseMessaging.instance.getToken();
+  print(token);
   // var a = new PushNotificationsManager();
   // await a.init();
   // Get a specific camera from the list of available cameras.
@@ -92,6 +134,7 @@ class App extends GetWidget<AuthenticateController> {
       supportedLocales: S.delegate.supportedLocales,
       debugShowCheckedModeBanner: false,
       home: Obx(() {
+        print(controller.state);
         if (controller.state is UnAuthenticated) {
           return LogInScreen();
         }
