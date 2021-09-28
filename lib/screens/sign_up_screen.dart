@@ -12,6 +12,8 @@ import 'package:survey_app/base_color.dart';
 import 'package:survey_app/controllers/api_controller.dart';
 import 'package:survey_app/generated/l10n.dart';
 import 'package:survey_app/services/hex_color.dart';
+import 'package:survey_app/widgets/container_gradient_border.dart';
+import 'package:survey_app/widgets/gradien_mark.dart';
 import 'package:survey_app/widgets/input_container.dart';
 import 'package:survey_app/widgets/logo.dart';
 import 'package:survey_app/widgets/s_text_field.dart';
@@ -246,6 +248,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: BaseColor.background,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        leading: GradientMark(
+          BackButton(color: Colors.white),
+          gradient:
+              LinearGradient(colors: [Colors.blueAccent, Colors.cyanAccent]),
+        ),
+        centerTitle: false,
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -254,39 +267,59 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Logo(),
             Text(
               "Sign Up",
-              style: TextStyle(color: BaseColor.primary, fontSize: 40),
+              style: TextStyle(color: BaseColor.primary, fontSize: 35),
             ),
-            InputContainer(
+            ContainerGradientBorder(
+              width: size.width * 0.8,
+              height: 50,
+              intColor: Colors.white,
+              borderRadius: 10,
               child: XTextField(
                 icon: Icons.email,
                 hintText: S.current.email_hint,
                 controller: emailController,
               ),
-              color: Colors.white,
+              gradient: LinearGradient(
+                  colors: [Colors.blueAccent, Colors.cyanAccent]),
             ),
-            InputContainer(
+            ContainerGradientBorder(
+              width: size.width * 0.8,
+              height: 50,
+              intColor: Colors.white,
+              borderRadius: 10,
               child: XTextField(
                 icon: Icons.account_box_outlined,
                 hintText: S.current.user_name_hint,
                 controller: userNameController,
               ),
-              color: Colors.white,
+              gradient: LinearGradient(
+                  colors: [Colors.blueAccent, Colors.cyanAccent]),
             ),
-            InputContainer(
+            ContainerGradientBorder(
+              width: size.width * 0.8,
+              height: 50,
+              intColor: Colors.white,
+              borderRadius: 10,
               child: XTextField(
                 icon: Icons.lock,
                 hintText: S.current.password_hint,
                 controller: passwordController,
               ),
-              color: Colors.white,
+              gradient: LinearGradient(
+                  colors: [Colors.blueAccent, Colors.cyanAccent]),
             ),
-            InputContainer(
+            ContainerGradientBorder(
+              width: size.width * 0.8,
+              height: 50,
+              intColor: Colors.white,
+              borderRadius: 10,
               child: XTextField(
-                icon: Icons.password_sharp,
+                icon: Icons.lock_clock_sharp,
                 controller: rePasswordController,
                 hintText: S.current.password_again,
               ),
-              color: Colors.white,
+              gradient: LinearGradient(
+                  colors: [Colors.blueAccent, Colors.cyanAccent]),
             ),
             GestureDetector(
                 onTap: () {
@@ -344,23 +377,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 onTap: () async {
                   signUp();
                 },
-                child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                  decoration: BoxDecoration(
-                      color: BaseColor.background,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                          color: BaseColor.primary,
-                          style: BorderStyle.solid,
-                          width: 3)),
+                child: ContainerGradientBorder(
+                  width: size.width * 0.3,
+                  height: 50,
+                  intColor: Colors.white,
+                  borderRadius: 10,
                   child: Center(
                       child: Text(
                     S.current.sign_up,
                     style: TextStyle(color: BaseColor.primary, fontSize: 25),
                   )),
-                  width: size.width * 0.3,
-                  height: 50,
+                  gradient: LinearGradient(
+                      colors: [Colors.blueAccent, Colors.cyanAccent]),
                 )),
           ],
         ),

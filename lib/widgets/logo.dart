@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:survey_app/base_color.dart';
+import 'package:survey_app/widgets/gradien_text.dart';
 
 class Logo extends StatelessWidget {
   const Logo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(
+    return GradientText(
       "eSurvey",
-      style: TextStyle(color: BaseColor.primary, fontSize: 50),
+      gradient: LinearGradient(colors: [Colors.blueAccent, Colors.cyanAccent]),
+      style: TextStyle(color: Colors.white, fontSize: 50),
     );
   }
 }

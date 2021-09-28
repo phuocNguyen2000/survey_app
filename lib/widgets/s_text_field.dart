@@ -22,10 +22,10 @@ class _XTextFieldState extends State<XTextField> {
         contentPadding: EdgeInsets.symmetric(vertical: 8),
         prefixIcon: Icon(widget.icon, color: BaseColor.primary),
         focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: BaseColor.primary, width: 2),
+            borderSide: BorderSide(color: BaseColor.primary, width: 1),
             borderRadius: BorderRadius.circular(10)),
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey, width: 2),
+            borderSide: BorderSide(color: Colors.white, width: 0),
             borderRadius: BorderRadius.circular(10)),
       ),
     );
