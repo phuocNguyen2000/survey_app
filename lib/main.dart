@@ -3,8 +3,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:survey_app/controllers/authenticate/authenticate_service.dart';
 import 'package:survey_app/controllers/authenticate/authenticate_state.dart';
-import 'package:survey_app/resources/auth_repository.dart';
+
 import 'package:survey_app/routes/routes_generator.dart';
+import 'package:survey_app/screens/edit_survey_screen.dart';
+
 import 'package:survey_app/screens/home_screen.dart';
 import 'package:survey_app/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,8 +14,14 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:survey_app/screens/my_event_screen.dart';
+import 'package:survey_app/screens/my_survey_screen.dart';
 import 'package:survey_app/screens/sign_up_screen.dart';
+
 import 'package:survey_app/screens/splash_screen.dart';
+import 'package:survey_app/screens/survey_question_edit_screen.dart';
+import 'package:survey_app/widgets/edit_event_screen.dart';
+import 'package:survey_app/widgets/home_tab_body.dart';
 
 import 'controllers/authenticate/authenticate_controller.dart';
 import 'generated/l10n.dart';
@@ -33,13 +41,12 @@ FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 
 RouteGenerator routeGenerator = RouteGenerator();
 void initialize() async {
-  Get.lazyPut(
-    () => AuthenticateController(Get.put(FAuthenticateService())),
-  );
+  Get.lazyPut(() => AuthenticateController(Get.put(FAuthenticateService())),
+      fenix: true);
 }
 
 void main() async {
-  initialize();
+  InitialBinding().dependencies();
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
@@ -89,17 +96,33 @@ class App extends GetWidget<AuthenticateController> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      onInit: () {
+        InitialBinding().dependencies();
+      },
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => HomeScreen()),
+        GetPage(name: '/login', page: () => LogInScreen()),
+        GetPage(name: '/signUp', page: () => SignUpScreen()),
+        GetPage(name: '/mySurveys', page: () => MySurveyScreen()),
+        GetPage(name: '/createSurvey', page: () => SurveyQuestionEditScreen()),
+        GetPage(name: '/createEvent', page: () => EditEventScreen()),
+        GetPage(name: '/myEvents', page: () => MyEventScreen())
+      ],
       localizationsDelegates: [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
+      initialBinding: InitialBinding(),
       supportedLocales: S.delegate.supportedLocales,
       debugShowCheckedModeBanner: false,
+      defaultTransition: Transition.rightToLeft,
       home: Obx(() {
         print(controller.state);
-        if (controller.state is UnAuthenticated) {
+        if (controller.state is UnAuthenticated ||
+            controller.state is AuthenticationFailure) {
           return LogInScreen();
         }
 
@@ -109,5 +132,13 @@ class App extends GetWidget<AuthenticateController> {
         return SplashScreen();
       }),
     );
+  }
+}
+
+class InitialBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => AuthenticateController(Get.put(FAuthenticateService())),
+        fenix: true);
   }
 }

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:survey_app/base_color.dart';
 
 class XTextField extends StatefulWidget {
-  const XTextField({Key? key, this.controller, this.hintText, this.icon})
+  const XTextField(
+      {Key? key, this.controller, this.hintText, this.icon, this.onchange})
       : super(key: key);
   final controller;
   final hintText;
   final icon;
+  final onchange;
 
   @override
   _XTextFieldState createState() => _XTextFieldState();
@@ -16,6 +18,7 @@ class _XTextFieldState extends State<XTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: widget.onchange,
       controller: widget.controller,
       decoration: InputDecoration(
         hintText: widget.hintText,

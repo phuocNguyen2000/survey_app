@@ -9,11 +9,9 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 import 'package:survey_app/base_color.dart';
-import 'package:survey_app/controllers/authenticate/authentication.dart';
 
-import 'package:survey_app/controllers/signup/sign_up_controller.dart';
 import 'package:survey_app/generated/l10n.dart';
-import 'package:survey_app/main.dart';
+import 'package:survey_app/screens/survey_question_edit_screen.dart';
 import 'package:survey_app/widgets/container_gradient_border.dart';
 import 'package:survey_app/widgets/gradien_mark.dart';
 
@@ -22,20 +20,20 @@ import 'package:survey_app/widgets/s_text_field.dart';
 import 'package:video_player/video_player.dart';
 import 'package:http/http.dart' as http;
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({
+class EditSurveyScreen extends StatefulWidget {
+  const EditSurveyScreen({
     Key? key,
     this.title,
   }) : super(key: key);
   final String? title;
 
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  _EditSurveyScreenState createState() => _EditSurveyScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _EditSurveyScreenState extends State<EditSurveyScreen> {
   List<XFile>? _imageFileList;
-  final _signUpcontroller = Get.put(SignUpController());
+
   set _imageFile(XFile? value) {
     _imageFileList = value == null ? null : [value];
   }
@@ -53,10 +51,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController maxHeightController = TextEditingController();
   final TextEditingController qualityController = TextEditingController();
 
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController userNameController = TextEditingController();
-  final TextEditingController rePasswordController = TextEditingController();
+  final TextEditingController surveyNameController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
 
   Future<void> _playVideo(XFile? file) async {
     if (file != null && mounted) {
@@ -223,13 +219,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.initState();
   }
 
-  void signUp() async {
-    String email = emailController.text;
-    String password = passwordController.text;
-    String userName = userNameController.text;
-    String base64;
+  void EditSurvey() async {
+    String name = surveyNameController.text;
+    String description = descriptionController.text;
 
-    String? token = await FirebaseMessaging.instance.getToken();
+    String base64;
 
     if (!kIsWeb) {
       base64 = base64Encode(File(_imageFileList!.first.path).readAsBytesSync());
@@ -238,8 +232,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
           await http.get(Uri.parse(_imageFileList!.first.path));
       base64 = base64Encode(response.bodyBytes);
     }
-
-    _signUpcontroller.signUp(email, password, token, userName, base64);
+    var survey = {
+      "name": name,
+      "description": description,
+      "question": [],
+      "image64": base64
+    };
+    Get.to(SurveyQuestionEditScreen(survey: survey));
   }
 
   @override
@@ -252,13 +251,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         leading: GradientMark(
-          IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              InitialBinding().dependencies();
-              Get.back();
-            },
-          ),
+          BackButton(color: Colors.white),
           gradient:
               LinearGradient(colors: [Colors.blueAccent, Colors.cyanAccent]),
         ),
@@ -266,137 +259,111 @@ class _SignUpScreenState extends State<SignUpScreen> {
         elevation: 0.0,
         backgroundColor: Colors.transparent,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SImage64.imageFromBase64String(SImage64.logo100),
-            SizedBox(
-              height: 50,
-            ),
-            ContainerGradientBorder(
-              width: size.width * 0.8,
-              height: 50,
-              intColor: Colors.white,
-              borderRadius: 10,
-              child: XTextField(
-                icon: Icons.email,
-                hintText: S.current.email_hint,
-                controller: emailController,
+      body: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: double.infinity),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SImage64.imageFromBase64String(SImage64.logo100),
+              SizedBox(
+                height: 50,
               ),
-              gradient: LinearGradient(
-                  colors: [Colors.blueAccent, Colors.cyanAccent]),
-            ),
-            ContainerGradientBorder(
-              width: size.width * 0.8,
-              height: 50,
-              intColor: Colors.white,
-              borderRadius: 10,
-              child: XTextField(
-                icon: Icons.account_box_outlined,
-                hintText: S.current.user_name_hint,
-                controller: userNameController,
+              ContainerGradientBorder(
+                width: size.width * 0.8,
+                height: 50,
+                intColor: Colors.white,
+                borderRadius: 10,
+                child: XTextField(
+                    icon: Icons.email,
+                    hintText: "your survey name",
+                    controller: surveyNameController),
+                gradient: LinearGradient(
+                    colors: [Colors.blueAccent, Colors.cyanAccent]),
               ),
-              gradient: LinearGradient(
-                  colors: [Colors.blueAccent, Colors.cyanAccent]),
-            ),
-            ContainerGradientBorder(
-              width: size.width * 0.8,
-              height: 50,
-              intColor: Colors.white,
-              borderRadius: 10,
-              child: XTextField(
-                icon: Icons.lock,
-                hintText: S.current.password_hint,
-                controller: passwordController,
+              ContainerGradientBorder(
+                width: size.width * 0.8,
+                height: 50,
+                intColor: Colors.white,
+                borderRadius: 10,
+                child: XTextField(
+                  icon: Icons.account_box_outlined,
+                  hintText: "Description",
+                  controller: descriptionController,
+                ),
+                gradient: LinearGradient(
+                    colors: [Colors.blueAccent, Colors.cyanAccent]),
               ),
-              gradient: LinearGradient(
-                  colors: [Colors.blueAccent, Colors.cyanAccent]),
-            ),
-            ContainerGradientBorder(
-              width: size.width * 0.8,
-              height: 50,
-              intColor: Colors.white,
-              borderRadius: 10,
-              child: XTextField(
-                icon: Icons.lock_clock_sharp,
-                controller: rePasswordController,
-                hintText: S.current.password_again,
-              ),
-              gradient: LinearGradient(
-                  colors: [Colors.blueAccent, Colors.cyanAccent]),
-            ),
-            GestureDetector(
-                onTap: () {
-                  isVideo = false;
-                  _onImageButtonPressed(
-                    ImageSource.gallery,
-                    context: context,
-                    isMultiImage: false,
-                  );
-                },
-                child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: !kIsWeb &&
-                            defaultTargetPlatform == TargetPlatform.android
-                        ? FutureBuilder<void>(
-                            future: retrieveLostData(),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<void> snapshot) {
-                              switch (snapshot.connectionState) {
-                                case ConnectionState.none:
-                                case ConnectionState.waiting:
-                                  return Text(
-                                    S.current.chose_id_recognition,
-                                    textAlign: TextAlign.center,
-                                  );
-                                case ConnectionState.done:
-                                  return _handlePreview();
-                                default:
-                                  if (snapshot.hasError) {
-                                    return Text(
-                                      'Pick image/video error: ${snapshot.error}}',
-                                      textAlign: TextAlign.center,
-                                    );
-                                  } else {
+              GestureDetector(
+                  onTap: () {
+                    isVideo = false;
+                    _onImageButtonPressed(
+                      ImageSource.gallery,
+                      context: context,
+                      isMultiImage: false,
+                    );
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: !kIsWeb &&
+                              defaultTargetPlatform == TargetPlatform.android
+                          ? FutureBuilder<void>(
+                              future: retrieveLostData(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<void> snapshot) {
+                                switch (snapshot.connectionState) {
+                                  case ConnectionState.none:
+                                  case ConnectionState.waiting:
                                     return Text(
                                       S.current.chose_id_recognition,
                                       textAlign: TextAlign.center,
                                     );
-                                  }
-                              }
-                            },
-                          )
-                        : _handlePreview(),
-                  ),
-                  width: size.width * 0.8,
-                  height: 50,
-                )),
-            GestureDetector(
-                onTap: () async {
-                  signUp();
-                },
-                child: ContainerGradientBorder(
-                  width: size.width * 0.3,
-                  height: 50,
-                  intColor: Colors.white,
-                  borderRadius: 10,
-                  child: Center(
-                      child: Text(
-                    S.current.sign_up,
-                    style: TextStyle(color: BaseColor.primary, fontSize: 25),
+                                  case ConnectionState.done:
+                                    return _handlePreview();
+                                  default:
+                                    if (snapshot.hasError) {
+                                      return Text(
+                                        'Pick image/video error: ${snapshot.error}}',
+                                        textAlign: TextAlign.center,
+                                      );
+                                    } else {
+                                      return Text(
+                                        S.current.chose_id_recognition,
+                                        textAlign: TextAlign.center,
+                                      );
+                                    }
+                                }
+                              },
+                            )
+                          : _handlePreview(),
+                    ),
+                    width: size.width * 0.8,
+                    height: 50,
                   )),
-                  gradient: LinearGradient(
-                      colors: [Colors.blueAccent, Colors.cyanAccent]),
-                )),
-          ],
+              GestureDetector(
+                  onTap: () async {
+                    EditSurvey();
+                  },
+                  child: ContainerGradientBorder(
+                    width: size.width * 0.3,
+                    height: 50,
+                    intColor: Colors.white,
+                    borderRadius: 10,
+                    child: Center(
+                        child: Text(
+                      S.current.sign_up,
+                      style: TextStyle(color: BaseColor.primary, fontSize: 25),
+                    )),
+                    gradient: LinearGradient(
+                        colors: [Colors.blueAccent, Colors.cyanAccent]),
+                  )),
+            ],
+          ),
         ),
       ),
     );

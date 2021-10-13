@@ -22,12 +22,18 @@ class AuthenticateController extends GetxController {
   Future<void> signIn(String email, String password) async {
     final data =
         await authenticateService.signInWithEmailAndPassword(email, password);
-    User user = User(name: "curUs", email: data.data.toString());
-    _authenticationStateStream.value = Authenticated(user: user);
+
+    if (data.data.toString() == "null" || data.data.toString().isEmpty) {
+      print(data.message);
+      _authenticationStateStream.value =
+          AuthenticationFailure(message: data.message.toString());
+    } else {
+      User user = User(name: "curUs", email: data.data.toString());
+      _authenticationStateStream.value = Authenticated(user: user);
+    }
   }
 
   void signOut() async {
-    await authenticateService.signOut();
     _authenticationStateStream.value = UnAuthenticated();
   }
 

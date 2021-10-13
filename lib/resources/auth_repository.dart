@@ -60,10 +60,10 @@ class AuthRepository {
     }
   }
 
-  Future<DataResponse<String>> test() async {
+  Future<DataResponse<String>> currentUser() async {
     var response;
     try {
-      response = await apiController.test();
+      response = await apiController.currentUser();
       print(response);
     } catch (e) {
       print(e);

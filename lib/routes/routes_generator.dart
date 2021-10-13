@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:survey_app/api/response.dart';
+
 import 'package:survey_app/resources/auth_repository.dart';
 import 'package:survey_app/screens/home_screen.dart';
 import 'package:survey_app/screens/login_screen.dart';
@@ -11,7 +10,7 @@ import 'package:survey_app/screens/sign_up_screen.dart';
 
 import 'error_route.dart';
 import 'routes.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+
 
 class RouteGenerator {
   AuthRepository authRepository = new AuthRepository();

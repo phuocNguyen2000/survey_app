@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:survey_app/widgets/survey_card.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:survey_app/widgets/grid_dashboard.dart';
 
 class HomeTabBody extends StatefulWidget {
   const HomeTabBody({Key? key}) : super(key: key);
@@ -9,19 +10,62 @@ class HomeTabBody extends StatefulWidget {
 }
 
 class _HomeTabBodyState extends State<HomeTabBody> {
-  List<Widget> surveys = [
-    SurveyCard(),
-    SurveyCard(),
-    SurveyCard(),
-    SurveyCard()
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView(
-        children: surveys,
+    return Scaffold(
+        body: Scaffold(
+      backgroundColor: Color(0xff392850),
+      body: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 110,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 16, right: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Johny s Family",
+                      style: GoogleFonts.openSans(
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold)),
+                    ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Text(
+                      "Home",
+                      style: GoogleFonts.openSans(
+                          textStyle: TextStyle(
+                              color: Color(0xffa29aac),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600)),
+                    ),
+                  ],
+                ),
+                IconButton(
+                  alignment: Alignment.topCenter,
+                  icon: Image.asset(
+                    "assets/notification.png",
+                    width: 24,
+                  ),
+                  onPressed: () {},
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 40,
+          ),
+          GridDashboard()
+        ],
       ),
-    );
+    ));
   }
 }

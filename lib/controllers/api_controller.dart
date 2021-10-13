@@ -15,11 +15,66 @@ class ApiController {
     }
   }
 
-  Future<Map<String, dynamic>> test() async {
+  Future<Map<String, dynamic>> currentUser() async {
     ApiProvider apiProvider = ApiProvider();
     try {
       final String data = json.encode({"email": "e", "password": "e"});
-      return await apiProvider.post(baseUrl + '/test', data);
+      return await apiProvider.post(baseUrl + '/currentUser', data);
+    } on Error catch (e) {
+      throw Exception('Failed to load post ' + e.toString());
+    }
+  }
+
+  Future<Map<String, dynamic>> ownSurvey() async {
+    ApiProvider apiProvider = ApiProvider();
+    try {
+      final String data = json.encode({"email": "e", "password": "e"});
+
+      return await apiProvider.post(baseUrl + '/ownSurvey', data);
+    } on Error catch (e) {
+      throw Exception('Failed to load post ' + e.toString());
+    }
+  }
+
+  Future<Map<String, dynamic>> ownEvent() async {
+    ApiProvider apiProvider = ApiProvider();
+    try {
+      final String data = json.encode({"email": "e", "password": "e"});
+
+      return await apiProvider.post(baseUrl + '/ownEvent', data);
+    } on Error catch (e) {
+      throw Exception('Failed to load post ' + e.toString());
+    }
+  }
+
+  Future<Map<String, dynamic>> createSurvey(dynamic survey) async {
+    ApiProvider apiProvider = ApiProvider();
+    try {
+      final String data = json.encode(survey);
+
+      return await apiProvider.post(baseUrl + '/createSurvey', data);
+    } on Error catch (e) {
+      throw Exception('Failed to load post ' + e.toString());
+    }
+  }
+
+  Future<Map<String, dynamic>> editSurvey(dynamic survey) async {
+    ApiProvider apiProvider = ApiProvider();
+    try {
+      final String data = json.encode(survey);
+
+      return await apiProvider.post(baseUrl + '/editSurvey', data);
+    } on Error catch (e) {
+      throw Exception('Failed to load post ' + e.toString());
+    }
+  }
+
+  Future<Map<String, dynamic>> createEvent(dynamic event) async {
+    ApiProvider apiProvider = ApiProvider();
+    try {
+      final String data = json.encode(event);
+
+      return await apiProvider.post(baseUrl + '/createEvent', data);
     } on Error catch (e) {
       throw Exception('Failed to load post ' + e.toString());
     }

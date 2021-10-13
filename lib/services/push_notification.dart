@@ -1,5 +1,3 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
-
 class PushNotificationsManager {
   PushNotificationsManager._();
 
@@ -7,9 +5,6 @@ class PushNotificationsManager {
 
   static final PushNotificationsManager _instance =
       PushNotificationsManager._();
-
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-  bool _initialized = false;
 
   Future<void> init() async {
     // if (!_initialized) {

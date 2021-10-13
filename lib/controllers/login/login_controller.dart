@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:survey_app/api/custom_exception.dart';
 import 'package:survey_app/controllers/authenticate/authenticate_controller.dart';
+import 'package:survey_app/controllers/authenticate/authenticate_state.dart';
 import 'package:survey_app/controllers/login/login_state.dart';
 
 class LoginController extends GetxController {
@@ -15,7 +16,13 @@ class LoginController extends GetxController {
 
     try {
       await _authenticationController.signIn(email, password);
-      _loginStateStream.value = LoginState();
+      if (_authenticationController.state is AuthenticationFailure) {
+        _loginStateStream.value = LoginFailure(
+            error: (_authenticationController.state as AuthenticationFailure)
+                .message);
+      } else {
+        _loginStateStream.value = LoginState();
+      }
     } on CustomException catch (e) {
       _loginStateStream.value = LoginFailure(error: e.toString());
     }

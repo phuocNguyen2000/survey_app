@@ -1,0 +1,1 @@
+enum QuestionTypes { Checkbox, Radio }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:survey_app/base_color.dart';
+
 import 'package:survey_app/widgets/gradien_text.dart';
 
 class Logo extends StatelessWidget {

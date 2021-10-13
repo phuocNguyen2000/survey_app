@@ -2,7 +2,7 @@ import 'package:crypto/crypto.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:survey_app/controllers/authenticate/authenticate_state.dart';
-import 'package:survey_app/controllers/authenticate/authenticate_controller.dart';
+
 import 'package:survey_app/generated/l10n.dart';
 import 'package:survey_app/resources/auth_repository.dart';
 import 'dart:async';
