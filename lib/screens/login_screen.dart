@@ -7,8 +7,6 @@ import 'package:survey_app/controllers/login/login_controller.dart';
 import 'package:survey_app/controllers/login/login_state.dart';
 import 'package:survey_app/generated/l10n.dart';
 
-import 'package:survey_app/screens/sign_up_screen.dart';
-import 'package:survey_app/services/hex_color.dart';
 import 'package:survey_app/widgets/container_gradient_border.dart';
 import 'package:survey_app/widgets/gradien_mark.dart';
 import 'package:survey_app/widgets/login_background.dart';
@@ -73,6 +71,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   SizedBox(height: 100),
                   Container(
                     padding: EdgeInsets.all(8.0),
+                    height: MediaQuery.of(context).size.height * 0.3,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
@@ -90,6 +89,8 @@ class _LogInScreenState extends State<LogInScreen> {
                       ],
                     ),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         ContainerGradientBorder(
                           width: size.width * 0.8,
@@ -102,26 +103,32 @@ class _LogInScreenState extends State<LogInScreen> {
                               hintText: S.current.email_hint,
                               controller: emailController,
                             ),
-                            gradient: LinearGradient(colors: [
-                              HexColor("#ef6da0"),
-                              HexColor("#ee8e6b")
-                            ]),
+                            gradient:
+                                LinearGradient(colors: BaseColor.baseGradient),
                           ),
-                          gradient: LinearGradient(
-                              colors: [Colors.blueAccent, Colors.cyanAccent]),
+                          gradient:
+                              LinearGradient(colors: BaseColor.baseGradient),
+                        ),
+                        SizedBox(
+                          height: 20.0,
                         ),
                         ContainerGradientBorder(
                           width: size.width * 0.8,
                           height: 50.0,
                           intColor: Colors.white,
                           borderRadius: 10.0,
-                          child: XTextField(
-                            icon: Icons.lock,
-                            hintText: S.current.password_hint,
-                            controller: passwordController,
+                          child: GradientMark(
+                            XTextField(
+                              obscureText: true,
+                              icon: Icons.lock,
+                              hintText: S.current.password_hint,
+                              controller: passwordController,
+                            ),
+                            gradient:
+                                LinearGradient(colors: BaseColor.baseGradient),
                           ),
-                          gradient: LinearGradient(
-                              colors: [Colors.blueAccent, Colors.cyanAccent]),
+                          gradient:
+                              LinearGradient(colors: BaseColor.baseGradient),
                         ),
                       ],
                     ),

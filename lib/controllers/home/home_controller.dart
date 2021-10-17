@@ -17,9 +17,7 @@ class HomeController extends GetxController {
     ApiController apiController = new ApiController();
     try {
       response = await apiController.ownSurvey();
-      print(response);
     } catch (e) {
-      print(e);
       response = {"error": e.toString()};
     }
     if (response == null) {
@@ -38,9 +36,26 @@ class HomeController extends GetxController {
     ApiController apiController = new ApiController();
     try {
       response = await apiController.ownEvent();
-      print(response);
     } catch (e) {
-      print(e);
+      response = {"error": e.toString()};
+    }
+    if (response == null) {
+      return DataResponse.connectivityError();
+    }
+    if (response["error"] == null) {
+      var data = response;
+      return DataResponse.success(jsonEncode(data));
+    } else {
+      return DataResponse.error(response["error"]);
+    }
+  }
+
+  Future<DataResponse<String>> joinEvent() async {
+    var response;
+    ApiController apiController = new ApiController();
+    try {
+      response = await apiController.joinEvent();
+    } catch (e) {
       response = {"error": e.toString()};
     }
     if (response == null) {
@@ -59,9 +74,7 @@ class HomeController extends GetxController {
     ApiController apiController = new ApiController();
     try {
       response = await apiController.currentUser();
-      print(response);
     } catch (e) {
-      print(e);
       response = {"error": e.toString()};
     }
     if (response == null) {

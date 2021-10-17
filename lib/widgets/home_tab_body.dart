@@ -13,13 +13,8 @@ class _HomeTabBodyState extends State<HomeTabBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Scaffold(
-      backgroundColor: Color(0xff392850),
       body: Column(
         children: <Widget>[
-          SizedBox(
-            height: 110,
-          ),
           Padding(
             padding: EdgeInsets.only(left: 16, right: 16),
             child: Row(
@@ -28,14 +23,6 @@ class _HomeTabBodyState extends State<HomeTabBody> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      "Johny s Family",
-                      style: GoogleFonts.openSans(
-                          textStyle: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold)),
-                    ),
                     SizedBox(
                       height: 4,
                     ),
@@ -66,6 +53,6 @@ class _HomeTabBodyState extends State<HomeTabBody> {
           GridDashboard()
         ],
       ),
-    ));
+    );
   }
 }

@@ -299,6 +299,116 @@ class S {
       args: [],
     );
   }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add to event`
+  String get add_to_event {
+    return Intl.message(
+      'Add to event',
+      name: 'add_to_event',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Download`
+  String get download {
+    return Intl.message(
+      'Download',
+      name: 'download',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create new`
+  String get create_new {
+    return Intl.message(
+      'Create new',
+      name: 'create_new',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Event`
+  String get event {
+    return Intl.message(
+      'Event',
+      name: 'event',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Question`
+  String get question {
+    return Intl.message(
+      'Question',
+      name: 'question',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add`
+  String get adding {
+    return Intl.message(
+      'Add',
+      name: 'adding',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your`
+  String get your {
+    return Intl.message(
+      'Your',
+      name: 'your',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Survey`
+  String get survey {
+    return Intl.message(
+      'Survey',
+      name: 'survey',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign Out`
+  String get sign_out {
+    return Intl.message(
+      'Sign Out',
+      name: 'sign_out',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account`
+  String get account {
+    return Intl.message(
+      'Account',
+      name: 'account',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

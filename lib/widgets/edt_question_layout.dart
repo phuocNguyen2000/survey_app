@@ -13,7 +13,9 @@ class EdtQuestionLayout extends StatefulWidget {
       this.changeoption,
       this.changequestion,
       this.setType,
-      this.allowDifferentAnswer})
+      this.allowDifferentAnswer,
+      this.deleteOptionCallBack,
+      this.deleteQuestionCallBack})
       : super(key: key);
   final element;
   final addoption;
@@ -22,6 +24,8 @@ class EdtQuestionLayout extends StatefulWidget {
   final changequestion;
   final setType;
   final allowDifferentAnswer;
+  final deleteOptionCallBack;
+  final deleteQuestionCallBack;
 
   @override
   _EdtQuestionLayoutState createState() => _EdtQuestionLayoutState();
@@ -36,7 +40,7 @@ class _EdtQuestionLayoutState extends State<EdtQuestionLayout> {
   @override
   void initState() {
     this.textEditingController.text = widget.element["content"];
-    print(widget.element["options"]);
+
     setState(() {
       this.optionsx = widget.element["options"];
       widget.element["type"] == 0
@@ -98,7 +102,11 @@ class _EdtQuestionLayoutState extends State<EdtQuestionLayout> {
                     flex: 1,
                     child: Center(
                         child: IconButton(
-                            onPressed: () {}, icon: Icon(Icons.dangerous))))
+                            onPressed: () {
+                              widget
+                                  .deleteQuestionCallBack(widget.element["id"]);
+                            },
+                            icon: Icon(Icons.dangerous))))
               ],
             ),
             GestureDetector(
@@ -140,6 +148,9 @@ class _EdtQuestionLayoutState extends State<EdtQuestionLayout> {
                             .map((e) {
                       TextEditingController ct =
                           TextEditingController(text: e["content"]);
+                      ct.selection = TextSelection(
+                          baseOffset: e["content"].length,
+                          extentOffset: e["content"].length);
                       return Row(
                         children: [
                           Expanded(
@@ -147,6 +158,10 @@ class _EdtQuestionLayoutState extends State<EdtQuestionLayout> {
                             child: XTextField(
                               onchange: (text) {
                                 widget.changeoption(text, e["id"]);
+                                ct.text = text;
+                                ct.selection = TextSelection(
+                                    baseOffset: text.length,
+                                    extentOffset: text.length);
                               },
                               icon: questionTypes == QuestionTypes.Checkbox
                                   ? Icons.check_box_outline_blank_outlined
@@ -167,7 +182,12 @@ class _EdtQuestionLayoutState extends State<EdtQuestionLayout> {
                                         : print("");
                                   });
                                 },
-                                icon: Icon(Icons.delete)),
+                                icon: GestureDetector(
+                                    onTap: () {
+                                      widget.deleteOptionCallBack(
+                                          widget.element["id"], e["id"]);
+                                    },
+                                    child: Icon(Icons.delete))),
                           )
                         ],
                       );

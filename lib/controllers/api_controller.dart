@@ -36,6 +36,17 @@ class ApiController {
     }
   }
 
+  Future<Map<String, dynamic>> joinEvent() async {
+    ApiProvider apiProvider = ApiProvider();
+    try {
+      final String data = json.encode({"email": "e", "password": "e"});
+
+      return await apiProvider.post(baseUrl + '/joinEvent', data);
+    } on Error catch (e) {
+      throw Exception('Failed to load post ' + e.toString());
+    }
+  }
+
   Future<Map<String, dynamic>> ownEvent() async {
     ApiProvider apiProvider = ApiProvider();
     try {

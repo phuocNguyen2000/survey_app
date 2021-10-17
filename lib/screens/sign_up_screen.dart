@@ -12,6 +12,7 @@ import 'package:survey_app/base_color.dart';
 import 'package:survey_app/controllers/authenticate/authentication.dart';
 
 import 'package:survey_app/controllers/signup/sign_up_controller.dart';
+import 'package:survey_app/controllers/signup/sign_up_state.dart';
 import 'package:survey_app/generated/l10n.dart';
 import 'package:survey_app/main.dart';
 import 'package:survey_app/widgets/container_gradient_border.dart';
@@ -47,7 +48,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   VideoPlayerController? _controller;
   VideoPlayerController? _toBeDisposed;
   String? _retrieveDataError;
-
+  bool ivaEmail = false;
+  bool ivaPass = false;
+  bool ivaRePass = false;
+  bool ivaIdReco = false;
+  bool ivaIdRePass = false;
+  bool ivaUsName = false;
   final ImagePicker _picker = ImagePicker();
   final TextEditingController maxWidthController = TextEditingController();
   final TextEditingController maxHeightController = TextEditingController();
@@ -96,9 +102,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         final pickedFileList = await _picker.pickMultiImage(
           maxWidth: 20,
           maxHeight: 20,
-          imageQuality: 1080,
+          imageQuality: 100,
         );
-        print("2");
+
         setState(() {
           _imageFileList = pickedFileList;
         });
@@ -113,7 +119,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           source: source,
           maxWidth: 200,
           maxHeight: 200,
-          imageQuality: 1080,
+          imageQuality: 100,
         );
 
         setState(() {
@@ -178,6 +184,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (_imageFileList != null) {
       return Icon(Icons.add_task_sharp, color: BaseColor.primary);
     } else if (_pickImageError != null) {
+      print(_pickImageError);
       return Text(
         'Pick image error: $_pickImageError',
         textAlign: TextAlign.center,
@@ -224,22 +231,49 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void signUp() async {
-    String email = emailController.text;
-    String password = passwordController.text;
-    String userName = userNameController.text;
-    String base64;
+    if (emailController.text.isEmpty == false &&
+        passwordController.text.isEmpty == false &&
+        userNameController.text.isEmpty == false &&
+        emailController.text.isEmail == true &&
+        passwordController.text == rePasswordController.text) {
+      String email = emailController.text;
+      String password = passwordController.text;
+      String userName = userNameController.text;
+      String base64;
+      String? token = await FirebaseMessaging.instance.getToken();
 
-    String? token = await FirebaseMessaging.instance.getToken();
+      if (!kIsWeb) {
+        base64 =
+            base64Encode(File(_imageFileList!.first.path).readAsBytesSync());
+      } else {
+        http.Response response =
+            await http.get(Uri.parse(_imageFileList!.first.path));
+        base64 = base64Encode(response.bodyBytes);
+      }
 
-    if (!kIsWeb) {
-      base64 = base64Encode(File(_imageFileList!.first.path).readAsBytesSync());
+      _signUpcontroller.signUp(email, password, token, userName, base64);
     } else {
-      http.Response response =
-          await http.get(Uri.parse(_imageFileList!.first.path));
-      base64 = base64Encode(response.bodyBytes);
+      if (emailController.text.isEmpty == true) {
+        this.setState(() {
+          this.ivaEmail = false;
+        });
+      }
+      if (passwordController.text.isEmpty == true) {
+        this.setState(() {
+          this.ivaPass = false;
+        });
+      }
+      if (userNameController.text.isEmpty == true) {
+        this.setState(() {
+          this.ivaUsName = false;
+        });
+      }
+      if (rePasswordController.text == passwordController.text) {
+        this.setState(() {
+          this.ivaRePass = false;
+        });
+      }
     }
-
-    _signUpcontroller.signUp(email, password, token, userName, base64);
   }
 
   @override
@@ -275,110 +309,151 @@ class _SignUpScreenState extends State<SignUpScreen> {
             SizedBox(
               height: 50,
             ),
-            ContainerGradientBorder(
-              width: size.width * 0.8,
-              height: 50,
-              intColor: Colors.white,
-              borderRadius: 10,
-              child: XTextField(
-                icon: Icons.email,
-                hintText: S.current.email_hint,
-                controller: emailController,
-              ),
-              gradient: LinearGradient(
-                  colors: [Colors.blueAccent, Colors.cyanAccent]),
-            ),
-            ContainerGradientBorder(
-              width: size.width * 0.8,
-              height: 50,
-              intColor: Colors.white,
-              borderRadius: 10,
-              child: XTextField(
-                icon: Icons.account_box_outlined,
-                hintText: S.current.user_name_hint,
-                controller: userNameController,
-              ),
-              gradient: LinearGradient(
-                  colors: [Colors.blueAccent, Colors.cyanAccent]),
-            ),
-            ContainerGradientBorder(
-              width: size.width * 0.8,
-              height: 50,
-              intColor: Colors.white,
-              borderRadius: 10,
-              child: XTextField(
-                icon: Icons.lock,
-                hintText: S.current.password_hint,
-                controller: passwordController,
-              ),
-              gradient: LinearGradient(
-                  colors: [Colors.blueAccent, Colors.cyanAccent]),
-            ),
-            ContainerGradientBorder(
-              width: size.width * 0.8,
-              height: 50,
-              intColor: Colors.white,
-              borderRadius: 10,
-              child: XTextField(
-                icon: Icons.lock_clock_sharp,
-                controller: rePasswordController,
-                hintText: S.current.password_again,
-              ),
-              gradient: LinearGradient(
-                  colors: [Colors.blueAccent, Colors.cyanAccent]),
-            ),
-            GestureDetector(
-                onTap: () {
-                  isVideo = false;
-                  _onImageButtonPressed(
-                    ImageSource.gallery,
-                    context: context,
-                    isMultiImage: false,
-                  );
-                },
-                child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
+            Container(
+              padding: EdgeInsets.all(8.0),
+              height: MediaQuery.of(context).size.height * 0.5,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3), // changes position of shadow
                   ),
-                  child: Center(
-                    child: !kIsWeb &&
-                            defaultTargetPlatform == TargetPlatform.android
-                        ? FutureBuilder<void>(
-                            future: retrieveLostData(),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<void> snapshot) {
-                              switch (snapshot.connectionState) {
-                                case ConnectionState.none:
-                                case ConnectionState.waiting:
-                                  return Text(
-                                    S.current.chose_id_recognition,
-                                    textAlign: TextAlign.center,
-                                  );
-                                case ConnectionState.done:
-                                  return _handlePreview();
-                                default:
-                                  if (snapshot.hasError) {
-                                    return Text(
-                                      'Pick image/video error: ${snapshot.error}}',
-                                      textAlign: TextAlign.center,
-                                    );
-                                  } else {
-                                    return Text(
-                                      S.current.chose_id_recognition,
-                                      textAlign: TextAlign.center,
-                                    );
-                                  }
-                              }
-                            },
-                          )
-                        : _handlePreview(),
+                ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ContainerGradientBorder(
+                    width: size.width * 0.8,
+                    height: 50,
+                    intColor: Colors.white,
+                    borderRadius: 10,
+                    child: GradientMark(
+                      XTextField(
+                        icon: Icons.email,
+                        hintText: S.current.email_hint,
+                        controller: emailController,
+                      ),
+                      gradient: LinearGradient(colors: BaseColor.baseGradient),
+                    ),
+                    gradient: LinearGradient(
+                        colors: [Colors.blueAccent, Colors.cyanAccent]),
                   ),
-                  width: size.width * 0.8,
-                  height: 50,
-                )),
+                  ContainerGradientBorder(
+                    width: size.width * 0.8,
+                    height: 50,
+                    intColor: Colors.white,
+                    borderRadius: 10,
+                    child: GradientMark(
+                      XTextField(
+                        icon: Icons.account_box_outlined,
+                        hintText: S.current.user_name_hint,
+                        controller: userNameController,
+                      ),
+                      gradient: LinearGradient(colors: BaseColor.baseGradient),
+                    ),
+                    gradient: LinearGradient(
+                        colors: [Colors.blueAccent, Colors.cyanAccent]),
+                  ),
+                  ContainerGradientBorder(
+                    width: size.width * 0.8,
+                    height: 50,
+                    intColor: Colors.white,
+                    borderRadius: 10,
+                    child: GradientMark(
+                      XTextField(
+                        icon: Icons.lock,
+                        hintText: S.current.password_hint,
+                        controller: passwordController,
+                      ),
+                      gradient: LinearGradient(colors: BaseColor.baseGradient),
+                    ),
+                    gradient: LinearGradient(
+                        colors: [Colors.blueAccent, Colors.cyanAccent]),
+                  ),
+                  ContainerGradientBorder(
+                    width: size.width * 0.8,
+                    height: 50,
+                    intColor: Colors.white,
+                    borderRadius: 10,
+                    child: GradientMark(
+                      XTextField(
+                        icon: Icons.lock_clock_sharp,
+                        controller: rePasswordController,
+                        hintText: S.current.password_again,
+                      ),
+                      gradient: LinearGradient(colors: BaseColor.baseGradient),
+                    ),
+                    gradient: LinearGradient(
+                        colors: [Colors.blueAccent, Colors.cyanAccent]),
+                  ),
+                  GestureDetector(
+                      onTap: () {
+                        isVideo = false;
+                        _onImageButtonPressed(
+                          ImageSource.gallery,
+                          context: context,
+                          isMultiImage: false,
+                        );
+                      },
+                      child: Container(
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: !kIsWeb &&
+                                  defaultTargetPlatform ==
+                                      TargetPlatform.android
+                              ? FutureBuilder<void>(
+                                  future: retrieveLostData(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<void> snapshot) {
+                                    switch (snapshot.connectionState) {
+                                      case ConnectionState.none:
+                                      case ConnectionState.waiting:
+                                        return Text(
+                                          S.current.chose_id_recognition,
+                                          textAlign: TextAlign.center,
+                                        );
+                                      case ConnectionState.done:
+                                        return _handlePreview();
+                                      default:
+                                        if (snapshot.hasError) {
+                                          return Text(
+                                            'Pick image/video error: ${snapshot.error}}',
+                                            textAlign: TextAlign.center,
+                                          );
+                                        } else {
+                                          return Text(
+                                            S.current.chose_id_recognition,
+                                            textAlign: TextAlign.center,
+                                          );
+                                        }
+                                    }
+                                  },
+                                )
+                              : _handlePreview(),
+                        ),
+                        width: size.width * 0.8,
+                        height: 30.0,
+                      )),
+                ],
+              ),
+            ),
+            SizedBox(height: 15.0),
             GestureDetector(
                 onTap: () async {
                   signUp();
@@ -396,6 +471,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   gradient: LinearGradient(
                       colors: [Colors.blueAccent, Colors.cyanAccent]),
                 )),
+            if (_signUpcontroller.state is SignUpFailure)
+              Text(
+                (_signUpcontroller.state as SignUpFailure).error,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.amber),
+              ),
+            if (_signUpcontroller.state is SignUpLoading)
+              Center(
+                child: CircularProgressIndicator(),
+              ),
           ],
         ),
       ),

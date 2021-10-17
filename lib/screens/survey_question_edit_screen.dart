@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:survey_app/base_color.dart';
 import 'package:survey_app/controllers/api_controller.dart';
 import 'package:survey_app/enum/question_type.dart';
@@ -57,6 +58,22 @@ class _SurveyQuestionEditScreenState extends State<SurveyQuestionEditScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        leading: GradientMark(
+          IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(Icons.arrow_back),
+          ),
+          gradient:
+              LinearGradient(colors: [Colors.blueAccent, Colors.cyanAccent]),
+        ),
+        centerTitle: false,
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+      ),
       body: Stack(
         children: [
           Padding(
@@ -66,21 +83,26 @@ class _SurveyQuestionEditScreenState extends State<SurveyQuestionEditScreen> {
                 Expanded(
                   flex: 2,
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
                         flex: 5,
                         child: Container(
                           child: Center(
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                SizedBox(height: 25.0),
                                 ContainerGradientBorder(
-                                  width: size.width * 0.4,
+                                  width: size.width * 0.5,
                                   height: 50,
                                   intColor: Colors.white,
                                   borderRadius: 10,
                                   child: XTextField(
                                       icon: Icons.email,
-                                      hintText: "your survey name",
+                                      hintText: "Survey name",
                                       controller: surveyNameController),
                                   gradient: LinearGradient(colors: [
                                     Colors.blueAccent,
@@ -175,15 +197,33 @@ class _SurveyQuestionEditScreenState extends State<SurveyQuestionEditScreen> {
                               });
                             },
                             element: e,
+                            deleteOptionCallBack: (q_id, op_id) {
+                              setState(() {
+                                List options =
+                                    jsonDecode(jsonEncode(e["options"]));
+                                options.forEach((element) {
+                                  if (element["id"] == op_id) {
+                                    options.removeAt(options.indexOf(element));
+                                  }
+                                });
+                                this.questions[this.questions.indexOf(e)]
+                                    ["options"] = options;
+                              });
+                            },
+                            deleteQuestionCallBack: (id) {
+                              this.setState(() {
+                                if (e["id"] == id) {
+                                  this.questions.remove(e);
+                                }
+                              });
+                            },
                             addoption: () {
                               setState(() {
                                 String s = jsonEncode(e["options"]);
-                                print("S" + s);
+
                                 List options = jsonDecode(s);
-                                options.add({
-                                  "id": options.length,
-                                  "content": "option1"
-                                });
+                                options
+                                    .add({"id": options.length, "content": ""});
                                 this.questions[this.questions.indexOf(e)]
                                     ["options"] = options;
                               });
@@ -195,11 +235,13 @@ class _SurveyQuestionEditScreenState extends State<SurveyQuestionEditScreen> {
                 Expanded(
                   flex: 1,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Expanded(
                           flex: 4,
-                          child: TextButton(
-                            onPressed: () async {
+                          child: GestureDetector(
+                            onTap: () async {
                               if (surveyNameController.text.isEmpty == false &&
                                   descriptionController.text.isEmpty == false) {
                                 var name = surveyNameController.text;
@@ -215,7 +257,7 @@ class _SurveyQuestionEditScreenState extends State<SurveyQuestionEditScreen> {
                             },
                             child: ContainerGradientBorder(
                               width: size.width * 0.4,
-                              height: 50,
+                              height: 40,
                               gradient: LinearGradient(colors: [
                                 Colors.blueAccent,
                                 Colors.cyanAccent
@@ -232,11 +274,11 @@ class _SurveyQuestionEditScreenState extends State<SurveyQuestionEditScreen> {
                           )),
                       Expanded(
                           flex: 4,
-                          child: TextButton(
-                            onPressed: () {},
+                          child: GestureDetector(
+                            onTap: () {},
                             child: ContainerGradientBorder(
                               width: size.width * 0.4,
-                              height: 50,
+                              height: 40,
                               gradient: LinearGradient(colors: [
                                 Colors.blueAccent,
                                 Colors.cyanAccent
@@ -245,7 +287,7 @@ class _SurveyQuestionEditScreenState extends State<SurveyQuestionEditScreen> {
                               borderRadius: 10.0,
                               child: Center(
                                   child: Text(
-                                "Save and create an event",
+                                "Add to event",
                                 style: TextStyle(
                                     color: BaseColor.primary, fontSize: 14),
                               )),

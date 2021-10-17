@@ -51,6 +51,10 @@ dependencies:
   web_socket_channel: ^2.1.0
   google_fonts: ^2.1.0
   table_calendar: ^3.0.2
+  carousel_slider: ^4.0.0
+  url_launcher: ^6.0.10
+  fl_chart: ^0.40.0
+  syncfusion_flutter_charts: ^19.3.45+1
   
 dev_dependencies:
 

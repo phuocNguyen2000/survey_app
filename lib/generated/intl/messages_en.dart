@@ -21,23 +21,29 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "account": MessageLookupByLibrary.simpleMessage("Account"),
         "add_contact": MessageLookupByLibrary.simpleMessage("Add Contact"),
         "add_contact_success":
             MessageLookupByLibrary.simpleMessage("Add contact successfully"),
+        "add_to_event": MessageLookupByLibrary.simpleMessage("Add to event"),
+        "adding": MessageLookupByLibrary.simpleMessage("Add"),
         "already_user": MessageLookupByLibrary.simpleMessage("Already a user"),
         "check_domain": MessageLookupByLibrary.simpleMessage("Check Domain"),
         "chose_id_recognition":
             MessageLookupByLibrary.simpleMessage("chose your id recognition"),
         "close_app": MessageLookupByLibrary.simpleMessage("Close app"),
+        "create_new": MessageLookupByLibrary.simpleMessage("Create new"),
         "database_does_not_exist":
             MessageLookupByLibrary.simpleMessage("Database does not exist"),
         "does_not_have_account":
             MessageLookupByLibrary.simpleMessage("Does not have account ?"),
         "domain_does_not_exist":
             MessageLookupByLibrary.simpleMessage("Domain does not exist"),
+        "download": MessageLookupByLibrary.simpleMessage("Download"),
         "email_hint": MessageLookupByLibrary.simpleMessage("Email"),
         "error": MessageLookupByLibrary.simpleMessage(
             "Error, close the app and try again"),
+        "event": MessageLookupByLibrary.simpleMessage("Event"),
         "name_hint": MessageLookupByLibrary.simpleMessage("Name"),
         "new_user": MessageLookupByLibrary.simpleMessage("A new user?"),
         "no_internet": MessageLookupByLibrary.simpleMessage(
@@ -48,14 +54,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter the password again"),
         "password_hint": MessageLookupByLibrary.simpleMessage("Password"),
         "please_wait": MessageLookupByLibrary.simpleMessage("Please Wait..."),
+        "question": MessageLookupByLibrary.simpleMessage("Question"),
         "retry": MessageLookupByLibrary.simpleMessage("Retry"),
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
+        "sign_out": MessageLookupByLibrary.simpleMessage("Sign Out"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "signup_success": MessageLookupByLibrary.simpleMessage(
             "Successfully signed up, please Sign In"),
+        "survey": MessageLookupByLibrary.simpleMessage("Survey"),
         "user_name_hint": MessageLookupByLibrary.simpleMessage("User Name"),
         "username_or_password_is_incorrect":
             MessageLookupByLibrary.simpleMessage(
-                "Username or Password is incorrect")
+                "Username or Password is incorrect"),
+        "your": MessageLookupByLibrary.simpleMessage("Your")
       };
 }

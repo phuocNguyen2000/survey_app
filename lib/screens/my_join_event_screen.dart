@@ -6,18 +6,24 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:survey_app/api/response.dart';
 import 'package:survey_app/base_color.dart';
 import 'package:survey_app/controllers/home/home_controller.dart';
+import 'package:survey_app/main.dart';
+import 'package:survey_app/models/survey.dart';
+import 'package:survey_app/screens/survey_question_edit_screen.dart';
 import 'package:survey_app/widgets/container_gradient_border.dart';
 import 'package:survey_app/widgets/gradien_mark.dart';
+import 'package:survey_app/widgets/grid_dashboard.dart';
 import 'package:survey_app/widgets/grid_event.dart';
+import 'package:survey_app/widgets/grid_join_survey.dart';
+import 'package:survey_app/widgets/grid_survey.dart';
 
-class MyEventScreen extends StatefulWidget {
-  const MyEventScreen({Key? key}) : super(key: key);
+class MyJoinEventScreen extends StatefulWidget {
+  const MyJoinEventScreen({Key? key}) : super(key: key);
 
   @override
-  _MyEventScreenState createState() => _MyEventScreenState();
+  _MyJoinEventScreenState createState() => _MyJoinEventScreenState();
 }
 
-class _MyEventScreenState extends State<MyEventScreen> {
+class _MyJoinEventScreenState extends State<MyJoinEventScreen> {
   HomeController _controller = Get.find();
   @override
   Widget build(BuildContext context) {
@@ -49,7 +55,7 @@ class _MyEventScreenState extends State<MyEventScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Your Event",
+                      "Event",
                       style: GoogleFonts.openSans(
                           textStyle: TextStyle(
                               color: Colors.white,
@@ -76,7 +82,7 @@ class _MyEventScreenState extends State<MyEventScreen> {
             height: 40,
           ),
           FutureBuilder<DataResponse>(
-            future: _controller.ownEvent(), // a Future<String> or null
+            future: _controller.joinEvent(), // a Future<String> or null
             builder:
                 (BuildContext context, AsyncSnapshot<DataResponse> snapshot) {
               switch (snapshot.connectionState) {
@@ -91,33 +97,13 @@ class _MyEventScreenState extends State<MyEventScreen> {
                     List events = List.of(
                         jsonDecode(snapshot.data!.data.toString())["events"]);
 
-                    return GridEvent(
+                    return GridJoinSurvey(
                       events: events,
                     );
                   }
               }
             },
           ),
-          GestureDetector(
-              onTap: () async {
-                DataResponse d = await _controller.ownSurvey();
-                List ss = List.of(jsonDecode(d.data.toString())["surveys"]);
-
-                Get.toNamed("/createEvent", arguments: ss);
-              },
-              child: ContainerGradientBorder(
-                width: MediaQuery.of(context).size.width * 0.4,
-                height: 50.0,
-                gradient: LinearGradient(
-                    colors: [Colors.blueAccent, Colors.cyanAccent]),
-                intColor: Colors.white,
-                borderRadius: 10.0,
-                child: Center(
-                    child: Text(
-                  "Create New",
-                  style: TextStyle(color: BaseColor.primary, fontSize: 25),
-                )),
-              )),
         ],
       ),
     ));

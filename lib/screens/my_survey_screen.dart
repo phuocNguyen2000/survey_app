@@ -6,12 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:survey_app/api/response.dart';
 import 'package:survey_app/base_color.dart';
 import 'package:survey_app/controllers/home/home_controller.dart';
-import 'package:survey_app/main.dart';
-import 'package:survey_app/models/survey.dart';
-import 'package:survey_app/screens/survey_question_edit_screen.dart';
+
 import 'package:survey_app/widgets/container_gradient_border.dart';
 import 'package:survey_app/widgets/gradien_mark.dart';
-import 'package:survey_app/widgets/grid_dashboard.dart';
 import 'package:survey_app/widgets/grid_survey.dart';
 
 class MySurveyScreen extends StatefulWidget {
@@ -27,7 +24,6 @@ class _MySurveyScreenState extends State<MySurveyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Scaffold(
-      backgroundColor: Color(0xff392850),
       appBar: AppBar(
         leading: GradientMark(
           IconButton(
@@ -45,9 +41,6 @@ class _MySurveyScreenState extends State<MySurveyScreen> {
       ),
       body: Column(
         children: <Widget>[
-          SizedBox(
-            height: 110,
-          ),
           Padding(
             padding: EdgeInsets.only(left: 16, right: 16),
             child: Row(
@@ -95,7 +88,6 @@ class _MySurveyScreenState extends State<MySurveyScreen> {
             future: _controller.ownSurvey(), // a Future<String> or null
             builder:
                 (BuildContext context, AsyncSnapshot<DataResponse> snapshot) {
-              print(snapshot);
               switch (snapshot.connectionState) {
                 case ConnectionState.none:
                   return new Text('Press button to start');
@@ -107,7 +99,6 @@ class _MySurveyScreenState extends State<MySurveyScreen> {
                   else {
                     List surveys = List.of(
                         jsonDecode(snapshot.data!.data.toString())["surveys"]);
-                    print(surveys);
 
                     return GridSurvey(surveys: surveys);
                   }

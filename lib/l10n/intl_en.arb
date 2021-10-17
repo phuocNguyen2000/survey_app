@@ -24,5 +24,16 @@
     "signup_success":"Successfully signed up, please Sign In",
     "user_name_hint":"User Name",
     "chose_id_recognition":"chose your id recognition",
-    "password_again":"Enter the password again"
+    "password_again":"Enter the password again",
+    "save":"Save",
+   "add_to_event":"Add to event",
+   "download":"Download",
+   "create_new":"Create new",
+   "event":"Event",
+   "question":"Question",
+   "adding":"Add",
+   "your":"Your",
+   "survey":"Survey",
+   "sign_out":"Sign Out",
+   "account":"Account"
   }

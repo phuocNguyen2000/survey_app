@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -94,7 +93,7 @@ class _EditSurveyScreenState extends State<EditSurveyScreen> {
           maxHeight: 20,
           imageQuality: 1080,
         );
-        print("2");
+
         setState(() {
           _imageFileList = pickedFileList;
         });

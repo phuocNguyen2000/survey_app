@@ -24,5 +24,16 @@
    "signup_success": "Đăng ký thành công, vui lòng Đăng nhập ",
    "user_name_hint": "Tên Đăng Nhập",
    "chose_id_recognition":"Chọn ảnh căn cước công dân",
-   "password_again":"Nhập lại mật khẩu"
+   "password_again":"Nhập lại mật khẩu",
+   "save":"Lưu",
+   "add_to_event":"Thêm vào sự kiện",
+   "download":"Tải xuống",
+   "create_new":"Tạo mới",
+   "event":"Sự kiện",
+   "question":"câu hỏi",
+   "adding":"Thêm",
+   "your":"Của Bạn",
+   "survey":"Khảo sát",
+   "sign_out":"Đăng xuất",
+   "account":"Tài khoản"
 }

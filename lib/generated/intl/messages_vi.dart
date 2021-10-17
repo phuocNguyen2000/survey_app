@@ -21,24 +21,31 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "account": MessageLookupByLibrary.simpleMessage("Tài khoản"),
         "add_contact": MessageLookupByLibrary.simpleMessage("Thêm Liên Hệ"),
         "add_contact_success":
             MessageLookupByLibrary.simpleMessage("Thêm liên hệ thành công"),
+        "add_to_event":
+            MessageLookupByLibrary.simpleMessage("Thêm vào sự kiện"),
+        "adding": MessageLookupByLibrary.simpleMessage("Thêm"),
         "already_user":
             MessageLookupByLibrary.simpleMessage("Người dùng đã tồn tại"),
         "check_domain": MessageLookupByLibrary.simpleMessage("Kiểm Tra"),
         "chose_id_recognition":
             MessageLookupByLibrary.simpleMessage("Chọn ảnh căn cước công dân"),
         "close_app": MessageLookupByLibrary.simpleMessage("Đóng ứng dụng"),
+        "create_new": MessageLookupByLibrary.simpleMessage("Tạo mới"),
         "database_does_not_exist":
             MessageLookupByLibrary.simpleMessage("Database không tồn tại"),
         "does_not_have_account":
             MessageLookupByLibrary.simpleMessage("Chưa có tài Khoản ?"),
         "domain_does_not_exist":
             MessageLookupByLibrary.simpleMessage("Tên miền không tồn tại"),
+        "download": MessageLookupByLibrary.simpleMessage("Tải xuống"),
         "email_hint": MessageLookupByLibrary.simpleMessage("Email"),
         "error": MessageLookupByLibrary.simpleMessage(
             "Đã xảy ra lỗi,vui lòng đóng ứng dụng và thử lại sau"),
+        "event": MessageLookupByLibrary.simpleMessage("Sự kiện"),
         "name_hint": MessageLookupByLibrary.simpleMessage("Tên"),
         "new_user": MessageLookupByLibrary.simpleMessage("Người dùng mới?"),
         "no_internet": MessageLookupByLibrary.simpleMessage(
@@ -50,14 +57,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "password_hint": MessageLookupByLibrary.simpleMessage("Mật khẩu"),
         "please_wait":
             MessageLookupByLibrary.simpleMessage("Vui lòng chờ trong giây lát"),
+        "question": MessageLookupByLibrary.simpleMessage("câu hỏi"),
         "retry": MessageLookupByLibrary.simpleMessage("Thử lại"),
+        "save": MessageLookupByLibrary.simpleMessage("Lưu"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Đăng Nhập"),
+        "sign_out": MessageLookupByLibrary.simpleMessage("Đăng xuất"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Đăng Ký"),
         "signup_success": MessageLookupByLibrary.simpleMessage(
             "Đăng ký thành công, vui lòng Đăng nhập "),
+        "survey": MessageLookupByLibrary.simpleMessage("Khảo sát"),
         "user_name_hint": MessageLookupByLibrary.simpleMessage("Tên Đăng Nhập"),
         "username_or_password_is_incorrect":
             MessageLookupByLibrary.simpleMessage(
-                "Tên đăng nhập hoặc mật khẩu không hợp lệ")
+                "Tên đăng nhập hoặc mật khẩu không hợp lệ"),
+        "your": MessageLookupByLibrary.simpleMessage("Của Bạn")
       };
 }

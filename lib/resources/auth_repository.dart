@@ -43,7 +43,6 @@ class AuthRepository {
     try {
       response = await apiController.signIn(email, password);
     } catch (e) {
-      print(e);
       response = {"error": e.toString()};
     }
     if (response == null) {
@@ -64,9 +63,7 @@ class AuthRepository {
     var response;
     try {
       response = await apiController.currentUser();
-      print(response);
     } catch (e) {
-      print(e);
       response = {"error": e.toString()};
     }
     if (response == null) {

@@ -24,7 +24,6 @@ class AuthenticateController extends GetxController {
         await authenticateService.signInWithEmailAndPassword(email, password);
 
     if (data.data.toString() == "null" || data.data.toString().isEmpty) {
-      print(data.message);
       _authenticationStateStream.value =
           AuthenticationFailure(message: data.message.toString());
     } else {
@@ -34,6 +33,8 @@ class AuthenticateController extends GetxController {
   }
 
   void signOut() async {
+    AuthRepository authRepository = AuthRepository();
+    await authRepository.persistUser("");
     _authenticationStateStream.value = UnAuthenticated();
   }
 
@@ -43,10 +44,8 @@ class AuthenticateController extends GetxController {
     var data = await authenticateService.getCurrentToken();
 
     if (data == "") {
-      print("data null");
       _authenticationStateStream.value = UnAuthenticated();
     } else {
-      print("data ko null");
       User user = User(name: "curUs", email: data.toString());
       _authenticationStateStream.value = Authenticated(user: user);
     }
