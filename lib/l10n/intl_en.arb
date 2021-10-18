@@ -35,5 +35,9 @@
    "your":"Your",
    "survey":"Survey",
    "sign_out":"Sign Out",
-   "account":"Account"
+   "account":"Account",
+   "allow_diffrent_answer":"Allow different answer",
+   "option":"option"
+   ,"add_survey_name":"Add survey name"
+   ,"description":"Add description"
   }

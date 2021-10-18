@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:survey_app/api/response.dart';
 import 'package:survey_app/base_color.dart';
 import 'package:survey_app/controllers/home/home_controller.dart';
+import 'package:survey_app/generated/l10n.dart';
 
 import 'package:survey_app/widgets/container_gradient_border.dart';
 import 'package:survey_app/widgets/gradien_mark.dart';
@@ -49,19 +50,11 @@ class _MySurveyScreenState extends State<MySurveyScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      "Johny s Family",
-                      style: GoogleFonts.openSans(
-                          textStyle: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold)),
-                    ),
                     SizedBox(
                       height: 4,
                     ),
                     Text(
-                      "Home",
+                      S.current.survey,
                       style: GoogleFonts.openSans(
                           textStyle: TextStyle(
                               color: Color(0xffa29aac),
@@ -118,7 +111,7 @@ class _MySurveyScreenState extends State<MySurveyScreen> {
                 borderRadius: 10.0,
                 child: Center(
                     child: Text(
-                  "Create New",
+                  S.current.create_new,
                   style: TextStyle(color: BaseColor.primary, fontSize: 25),
                 )),
               )),

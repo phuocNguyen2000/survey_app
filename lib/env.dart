@@ -1,3 +1,3 @@
 class Env {
-  static String baseUrl = "https://osurvey-server.herokuapp.com";
+  static String baseUrl = "http://127.0.0.1:5000";
 }

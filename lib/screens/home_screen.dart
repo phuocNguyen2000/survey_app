@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:survey_app/controllers/home/home_controller.dart';
+import 'package:survey_app/generated/l10n.dart';
 import 'package:survey_app/screens/account_screen.dart';
 
 import 'package:survey_app/widgets/home_tab_body.dart';
@@ -28,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 3,
+        length: 2,
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,
@@ -36,7 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           body: TabBarView(children: [
             HomeTabBody(),
-            SurveyTabBody(),
             AccountScreen(
               signOut: signOut,
             ),
@@ -59,13 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Tab(
                   child: Align(
                     alignment: Alignment.center,
-                    child: Text("SURVEY"),
-                  ),
-                ),
-                Tab(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text("EVENT"),
+                    child: Text(S.current.account.toUpperCase()),
                   ),
                 ),
               ]),

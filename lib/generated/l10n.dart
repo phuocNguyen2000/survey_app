@@ -409,6 +409,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Allow different answer`
+  String get allow_diffrent_answer {
+    return Intl.message(
+      'Allow different answer',
+      name: 'allow_diffrent_answer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `option`
+  String get option {
+    return Intl.message(
+      'option',
+      name: 'option',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add survey name`
+  String get add_survey_name {
+    return Intl.message(
+      'Add survey name',
+      name: 'add_survey_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add description`
+  String get description {
+    return Intl.message(
+      'Add description',
+      name: 'description',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

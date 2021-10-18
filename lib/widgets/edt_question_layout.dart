@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:survey_app/enum/question_type.dart';
+import 'package:survey_app/generated/l10n.dart';
 import 'package:survey_app/widgets/s_text_field.dart';
 
 class EdtQuestionLayout extends StatefulWidget {
@@ -69,7 +70,7 @@ class _EdtQuestionLayoutState extends State<EdtQuestionLayout> {
                       widget.changequestion(text, widget.element["id"]);
                     },
                     icon: Icons.help_center_sharp,
-                    hintText: "Add your question",
+                    hintText: S.current.adding + S.current.question,
                     controller: textEditingController,
                   ),
                 ),
@@ -128,7 +129,8 @@ class _EdtQuestionLayoutState extends State<EdtQuestionLayout> {
                         color:
                             allowDifferentAnswer ? Colors.green : Colors.grey,
                       )),
-                  Expanded(flex: 6, child: Text("Allow different answer"))
+                  Expanded(
+                      flex: 6, child: Text(S.current.allow_diffrent_answer))
                 ],
               ),
             ),
@@ -166,7 +168,7 @@ class _EdtQuestionLayoutState extends State<EdtQuestionLayout> {
                               icon: questionTypes == QuestionTypes.Checkbox
                                   ? Icons.check_box_outline_blank_outlined
                                   : Icons.lens_outlined,
-                              hintText: "Add your option",
+                              hintText: S.current.option,
                               controller: ct,
                             ),
                           ),
@@ -174,20 +176,10 @@ class _EdtQuestionLayoutState extends State<EdtQuestionLayout> {
                             flex: 1,
                             child: IconButton(
                                 onPressed: () {
-                                  setState(() {
-                                    this.optionsx.length > 0
-                                        ? this
-                                            .optionsx
-                                            .removeAt(this.optionsx.indexOf(e))
-                                        : print("");
-                                  });
+                                  widget.deleteOptionCallBack(
+                                      widget.element["id"], e["id"]);
                                 },
-                                icon: GestureDetector(
-                                    onTap: () {
-                                      widget.deleteOptionCallBack(
-                                          widget.element["id"], e["id"]);
-                                    },
-                                    child: Icon(Icons.delete))),
+                                icon: Icon(Icons.delete)),
                           )
                         ],
                       );

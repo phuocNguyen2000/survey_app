@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:survey_app/controllers/api_controller.dart';
 import 'package:survey_app/widgets/container_gradient_border.dart';
 import 'package:survey_app/widgets/gradien_mark.dart';
 
@@ -263,7 +264,38 @@ class _DoSurveyScreenState extends State<DoSurveyScreen> {
               ],
             ),
             GestureDetector(
-                onTap: () {},
+                onTap: () async {
+                  List n_questions = [];
+                  for (var q in questions) {
+                    List ans = [];
+                    if (q["allow_diffrent_answer"] == true) {
+                      for (var dif in this.different_ans) {
+                        if (dif["id"] == q["id"]) {
+                          ans.add(
+                              {"id": ans.length, "content": dif["content"]});
+                        }
+                      }
+                    }
+                    for (var o in q["options"]) {
+                      if (o["check"] == true) {
+                        ans.add({"id": ans.length, "content": o["content"]});
+                      }
+                    }
+                    n_questions.add({"id": q["id"], "answers": ans});
+                  }
+                  var ev = {
+                    "event": {
+                      "id": this.event["id"],
+                      "survey": {
+                        "id": this.event["id"],
+                        "questions": n_questions
+                      }
+                    }
+                  };
+                  ApiController apiController = ApiController();
+                  var data = await apiController.doSurvey(ev);
+                  print(data.toString());
+                },
                 child: ContainerGradientBorder(
                   width: MediaQuery.of(context).size.width * 0.4,
                   height: 60,

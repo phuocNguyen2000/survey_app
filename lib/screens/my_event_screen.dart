@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:survey_app/api/response.dart';
 import 'package:survey_app/base_color.dart';
 import 'package:survey_app/controllers/home/home_controller.dart';
+import 'package:survey_app/generated/l10n.dart';
 import 'package:survey_app/widgets/container_gradient_border.dart';
 import 'package:survey_app/widgets/gradien_mark.dart';
 import 'package:survey_app/widgets/grid_event.dart';
@@ -49,7 +50,7 @@ class _MyEventScreenState extends State<MyEventScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Your Event",
+                      S.current.event,
                       style: GoogleFonts.openSans(
                           textStyle: TextStyle(
                               color: Colors.white,
@@ -114,7 +115,7 @@ class _MyEventScreenState extends State<MyEventScreen> {
                 borderRadius: 10.0,
                 child: Center(
                     child: Text(
-                  "Create New",
+                  S.current.create_new,
                   style: TextStyle(color: BaseColor.primary, fontSize: 25),
                 )),
               )),

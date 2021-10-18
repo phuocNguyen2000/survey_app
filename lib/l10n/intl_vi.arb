@@ -35,5 +35,9 @@
    "your":"Của Bạn",
    "survey":"Khảo sát",
    "sign_out":"Đăng xuất",
-   "account":"Tài khoản"
+   "account":"Tài khoản",
+   "allow_diffrent_answer":"chấp thuận ý kiến khác",
+   "option":"Lựa chọn"
+   ,"add_survey_name":"Thêm tên khảo sát"
+   ,"description":"Thêm mô tả"
 }

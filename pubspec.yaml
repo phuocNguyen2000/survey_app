@@ -55,6 +55,7 @@ dependencies:
   url_launcher: ^6.0.10
   fl_chart: ^0.40.0
   syncfusion_flutter_charts: ^19.3.45+1
+  local_auth: ^1.1.7
   
 dev_dependencies:
 
@@ -78,6 +79,9 @@ flutter:
     - assets/map.png
     - assets/setting.png
     - assets/todo.png
+    - assets/event.png
+    - assets/planner.png
+    - assets/my_survey.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

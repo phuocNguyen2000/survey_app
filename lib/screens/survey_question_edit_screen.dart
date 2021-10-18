@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:survey_app/base_color.dart';
 import 'package:survey_app/controllers/api_controller.dart';
 import 'package:survey_app/enum/question_type.dart';
+import 'package:survey_app/generated/l10n.dart';
 import 'package:survey_app/widgets/container_gradient_border.dart';
 import 'package:survey_app/widgets/edt_question_layout.dart';
 import 'package:survey_app/widgets/gradien_mark.dart';
@@ -102,7 +103,7 @@ class _SurveyQuestionEditScreenState extends State<SurveyQuestionEditScreen> {
                                   borderRadius: 10,
                                   child: XTextField(
                                       icon: Icons.email,
-                                      hintText: "Survey name",
+                                      hintText: S.current.add_survey_name,
                                       controller: surveyNameController),
                                   gradient: LinearGradient(colors: [
                                     Colors.blueAccent,
@@ -116,7 +117,7 @@ class _SurveyQuestionEditScreenState extends State<SurveyQuestionEditScreen> {
                                   borderRadius: 10,
                                   child: XTextField(
                                     icon: Icons.account_box_outlined,
-                                    hintText: "Description",
+                                    hintText: S.current.description,
                                     controller: descriptionController,
                                   ),
                                   gradient: LinearGradient(colors: [
@@ -199,15 +200,17 @@ class _SurveyQuestionEditScreenState extends State<SurveyQuestionEditScreen> {
                             element: e,
                             deleteOptionCallBack: (q_id, op_id) {
                               setState(() {
-                                List options =
-                                    jsonDecode(jsonEncode(e["options"]));
-                                options.forEach((element) {
-                                  if (element["id"] == op_id) {
-                                    options.removeAt(options.indexOf(element));
+                                if (e["id"] == q_id) {
+                                  List options =
+                                      jsonDecode(jsonEncode(e["options"]));
+                                  for (var op in options) {
+                                    if (op["id"] == op_id) {
+                                      options.remove(op);
+                                    }
                                   }
-                                });
-                                this.questions[this.questions.indexOf(e)]
-                                    ["options"] = options;
+                                  this.questions[this.questions.indexOf(e)]
+                                      ["options"] = options;
+                                }
                               });
                             },
                             deleteQuestionCallBack: (id) {
@@ -266,7 +269,7 @@ class _SurveyQuestionEditScreenState extends State<SurveyQuestionEditScreen> {
                               borderRadius: 10.0,
                               child: Center(
                                   child: Text(
-                                "Save",
+                                S.current.save,
                                 style: TextStyle(
                                     color: BaseColor.primary, fontSize: 14),
                               )),
@@ -287,7 +290,7 @@ class _SurveyQuestionEditScreenState extends State<SurveyQuestionEditScreen> {
                               borderRadius: 10.0,
                               child: Center(
                                   child: Text(
-                                "Add to event",
+                                S.current.add_to_event,
                                 style: TextStyle(
                                     color: BaseColor.primary, fontSize: 14),
                               )),

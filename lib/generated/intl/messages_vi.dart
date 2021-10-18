@@ -25,9 +25,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_contact": MessageLookupByLibrary.simpleMessage("Thêm Liên Hệ"),
         "add_contact_success":
             MessageLookupByLibrary.simpleMessage("Thêm liên hệ thành công"),
+        "add_survey_name":
+            MessageLookupByLibrary.simpleMessage("Thêm tên khảo sát"),
         "add_to_event":
             MessageLookupByLibrary.simpleMessage("Thêm vào sự kiện"),
         "adding": MessageLookupByLibrary.simpleMessage("Thêm"),
+        "allow_diffrent_answer":
+            MessageLookupByLibrary.simpleMessage("chấp thuận ý kiến khác"),
         "already_user":
             MessageLookupByLibrary.simpleMessage("Người dùng đã tồn tại"),
         "check_domain": MessageLookupByLibrary.simpleMessage("Kiểm Tra"),
@@ -37,6 +41,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "create_new": MessageLookupByLibrary.simpleMessage("Tạo mới"),
         "database_does_not_exist":
             MessageLookupByLibrary.simpleMessage("Database không tồn tại"),
+        "description": MessageLookupByLibrary.simpleMessage("Thêm mô tả"),
         "does_not_have_account":
             MessageLookupByLibrary.simpleMessage("Chưa có tài Khoản ?"),
         "domain_does_not_exist":
@@ -52,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Không có kết nối,vui lòng thử lại"),
         "no_results": MessageLookupByLibrary.simpleMessage("Không có kết quả"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
+        "option": MessageLookupByLibrary.simpleMessage("Lựa chọn"),
         "password_again":
             MessageLookupByLibrary.simpleMessage("Nhập lại mật khẩu"),
         "password_hint": MessageLookupByLibrary.simpleMessage("Mật khẩu"),

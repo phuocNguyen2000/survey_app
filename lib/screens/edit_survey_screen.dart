@@ -274,7 +274,7 @@ class _EditSurveyScreenState extends State<EditSurveyScreen> {
                 borderRadius: 10,
                 child: XTextField(
                     icon: Icons.email,
-                    hintText: "your survey name",
+                    hintText: S.current.add_survey_name,
                     controller: surveyNameController),
                 gradient: LinearGradient(
                     colors: [Colors.blueAccent, Colors.cyanAccent]),
@@ -286,7 +286,7 @@ class _EditSurveyScreenState extends State<EditSurveyScreen> {
                 borderRadius: 10,
                 child: XTextField(
                   icon: Icons.account_box_outlined,
-                  hintText: "Description",
+                  hintText: S.current.description,
                   controller: descriptionController,
                 ),
                 gradient: LinearGradient(

@@ -25,8 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_contact": MessageLookupByLibrary.simpleMessage("Add Contact"),
         "add_contact_success":
             MessageLookupByLibrary.simpleMessage("Add contact successfully"),
+        "add_survey_name":
+            MessageLookupByLibrary.simpleMessage("Add survey name"),
         "add_to_event": MessageLookupByLibrary.simpleMessage("Add to event"),
         "adding": MessageLookupByLibrary.simpleMessage("Add"),
+        "allow_diffrent_answer":
+            MessageLookupByLibrary.simpleMessage("Allow different answer"),
         "already_user": MessageLookupByLibrary.simpleMessage("Already a user"),
         "check_domain": MessageLookupByLibrary.simpleMessage("Check Domain"),
         "chose_id_recognition":
@@ -35,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "create_new": MessageLookupByLibrary.simpleMessage("Create new"),
         "database_does_not_exist":
             MessageLookupByLibrary.simpleMessage("Database does not exist"),
+        "description": MessageLookupByLibrary.simpleMessage("Add description"),
         "does_not_have_account":
             MessageLookupByLibrary.simpleMessage("Does not have account ?"),
         "domain_does_not_exist":
@@ -50,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "No internet connection, please try again"),
         "no_results": MessageLookupByLibrary.simpleMessage("No results"),
         "ok": MessageLookupByLibrary.simpleMessage("Ok"),
+        "option": MessageLookupByLibrary.simpleMessage("option"),
         "password_again":
             MessageLookupByLibrary.simpleMessage("Enter the password again"),
         "password_hint": MessageLookupByLibrary.simpleMessage("Password"),

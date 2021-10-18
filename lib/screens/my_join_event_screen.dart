@@ -4,17 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:survey_app/api/response.dart';
-import 'package:survey_app/base_color.dart';
 import 'package:survey_app/controllers/home/home_controller.dart';
-import 'package:survey_app/main.dart';
-import 'package:survey_app/models/survey.dart';
-import 'package:survey_app/screens/survey_question_edit_screen.dart';
-import 'package:survey_app/widgets/container_gradient_border.dart';
+import 'package:survey_app/generated/l10n.dart';
+
 import 'package:survey_app/widgets/gradien_mark.dart';
-import 'package:survey_app/widgets/grid_dashboard.dart';
-import 'package:survey_app/widgets/grid_event.dart';
 import 'package:survey_app/widgets/grid_join_survey.dart';
-import 'package:survey_app/widgets/grid_survey.dart';
 
 class MyJoinEventScreen extends StatefulWidget {
   const MyJoinEventScreen({Key? key}) : super(key: key);
@@ -55,7 +49,7 @@ class _MyJoinEventScreenState extends State<MyJoinEventScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Event",
+                      S.current.event,
                       style: GoogleFonts.openSans(
                           textStyle: TextStyle(
                               color: Colors.white,
