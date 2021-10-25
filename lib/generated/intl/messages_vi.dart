@@ -51,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "error": MessageLookupByLibrary.simpleMessage(
             "Đã xảy ra lỗi,vui lòng đóng ứng dụng và thử lại sau"),
         "event": MessageLookupByLibrary.simpleMessage("Sự kiện"),
+        "limit": MessageLookupByLibrary.simpleMessage("Giới hạn"),
         "name_hint": MessageLookupByLibrary.simpleMessage("Tên"),
         "new_user": MessageLookupByLibrary.simpleMessage("Người dùng mới?"),
         "no_internet": MessageLookupByLibrary.simpleMessage(

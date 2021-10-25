@@ -49,6 +49,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "error": MessageLookupByLibrary.simpleMessage(
             "Error, close the app and try again"),
         "event": MessageLookupByLibrary.simpleMessage("Event"),
+        "limit": MessageLookupByLibrary.simpleMessage("Limit"),
         "name_hint": MessageLookupByLibrary.simpleMessage("Name"),
         "new_user": MessageLookupByLibrary.simpleMessage("A new user?"),
         "no_internet": MessageLookupByLibrary.simpleMessage(

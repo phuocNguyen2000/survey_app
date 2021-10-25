@@ -111,7 +111,7 @@ class _SurveyQuestionEditScreenState extends State<SurveyQuestionEditScreen> {
                                   ]),
                                 ),
                                 ContainerGradientBorder(
-                                  width: size.width * 0.4,
+                                  width: size.width * 0.5,
                                   height: 50,
                                   intColor: Colors.white,
                                   borderRadius: 10,
@@ -132,23 +132,49 @@ class _SurveyQuestionEditScreenState extends State<SurveyQuestionEditScreen> {
                       ),
                       Expanded(
                           flex: 2,
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: FloatingActionButton(
-                              onPressed: () {
-                                this.setState(() {
-                                  this.questions.add({
-                                    "id": this.questions.length,
-                                    "limit": 0,
-                                    "content": "",
-                                    "allow_diffrent_answer": false,
-                                    "type": QuestionTypes.Checkbox.index,
-                                    "options": []
+                          child: Column(
+                            children: [
+                              SizedBox(height: 25.0),
+                              GestureDetector(
+                                onTap: () {},
+                                child: ContainerGradientBorder(
+                                  width: size.width * 0.4,
+                                  height: 50,
+                                  gradient: LinearGradient(colors: [
+                                    Colors.blueAccent,
+                                    Colors.cyanAccent
+                                  ]),
+                                  intColor: Colors.white,
+                                  borderRadius: 10.0,
+                                  child: Icon(Icons.image),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  this.setState(() {
+                                    this.questions.add({
+                                      "id": this.questions.length,
+                                      "limit": 0,
+                                      "content": "",
+                                      "allow_diffrent_answer": false,
+                                      "type": QuestionTypes.Checkbox.index,
+                                      "options": []
+                                    });
                                   });
-                                });
-                              },
-                              child: Icon(Icons.add),
-                            ),
+                                },
+                                child: ContainerGradientBorder(
+                                  width: size.width * 0.4,
+                                  height: 50,
+                                  gradient: LinearGradient(colors: [
+                                    Colors.blueAccent,
+                                    Colors.cyanAccent
+                                  ]),
+                                  intColor: Colors.white,
+                                  borderRadius: 10.0,
+                                  child: Icon(Icons.add),
+                                ),
+                              ),
+                            ],
                           ))
                     ],
                   ),

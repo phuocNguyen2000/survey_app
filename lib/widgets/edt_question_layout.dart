@@ -130,7 +130,12 @@ class _EdtQuestionLayoutState extends State<EdtQuestionLayout> {
                             allowDifferentAnswer ? Colors.green : Colors.grey,
                       )),
                   Expanded(
-                      flex: 6, child: Text(S.current.allow_diffrent_answer))
+                      flex: 6, child: Text(S.current.allow_diffrent_answer)),
+                  Expanded(
+                      flex: 2,
+                      child: XTextField(
+                        hintText: S.current.option,
+                      ))
                 ],
               ),
             ),

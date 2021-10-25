@@ -28,8 +28,7 @@ class _LogInScreenState extends State<LogInScreen> {
   TapGestureRecognizer _tapGestureRecognizer = TapGestureRecognizer();
   @override
   void initState() {
-    // TODO: implement initState
-    emailController.text = "tranthiyen@gmail.com";
+    emailController.text = "ogre.iwaki@gmail.com";
     passwordController.text = "lochixa411";
     _tapGestureRecognizer.onTap = () async {
       Get.toNamed("/signUp");
