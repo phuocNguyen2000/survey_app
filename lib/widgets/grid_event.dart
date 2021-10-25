@@ -5,10 +5,12 @@ import 'package:survey_app/screens/survey_question_edit_screen.dart';
 
 class GridEvent extends StatelessWidget {
   final events;
+  final action;
 
   const GridEvent({
     Key? key,
     this.events,
+    this.action,
   }) : super(key: key);
 
   @override
@@ -16,12 +18,9 @@ class GridEvent extends StatelessWidget {
     var color = 0xff453658;
 
     return Flexible(
-      child: GridView.count(
-          childAspectRatio: 1.0,
+      child: ListView(
+          scrollDirection: Axis.horizontal,
           padding: EdgeInsets.only(left: 16, right: 16),
-          crossAxisCount: 2,
-          crossAxisSpacing: 18,
-          mainAxisSpacing: 18,
           children: this.events.map<Widget>((data) {
             return GestureDetector(
               onTap: () async {},
@@ -63,9 +62,11 @@ class GridEvent extends StatelessWidget {
                               fontSize: 10,
                               fontWeight: FontWeight.w600)),
                     ),
-                    SizedBox(
-                      height: 14,
-                    ),
+                    data["payment"][0]["state"] == false
+                        ? TextButton(onPressed: () {}, child: Text("Buy Now"))
+                        : SizedBox(
+                            height: 14,
+                          ),
                   ],
                 ),
               ),

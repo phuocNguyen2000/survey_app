@@ -56,6 +56,9 @@ dependencies:
   fl_chart: ^0.40.0
   syncfusion_flutter_charts: ^19.3.45+1
   local_auth: ^1.1.7
+
+  permission_handler: ^8.1.6
+  download: ^0.0.1+1
   
 dev_dependencies:
 

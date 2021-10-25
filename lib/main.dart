@@ -7,6 +7,7 @@ import 'package:survey_app/controllers/authenticate/authenticate_state.dart';
 import 'package:survey_app/routes/routes_generator.dart';
 
 import 'package:survey_app/screens/do_survey_screen.dart';
+import 'package:survey_app/screens/event_dashboard.dart';
 
 import 'package:survey_app/screens/home_screen.dart';
 import 'package:survey_app/screens/login_screen.dart';
@@ -23,7 +24,7 @@ import 'package:survey_app/screens/sign_up_screen.dart';
 import 'package:survey_app/screens/splash_screen.dart';
 import 'package:survey_app/screens/survey_question_edit_screen.dart';
 import 'package:survey_app/widgets/edit_event_screen.dart';
-import 'package:survey_app/widgets/test_rprint.dart';
+import 'package:survey_app/widgets/test_download.dart';
 
 import 'controllers/authenticate/authenticate_controller.dart';
 import 'generated/l10n.dart';
@@ -112,7 +113,8 @@ class App extends GetWidget<AuthenticateController> {
           GetPage(name: '/myEvents', page: () => MyEventScreen()),
           GetPage(name: '/joinEvents', page: () => MyJoinEventScreen()),
           GetPage(name: '/doSurvey', page: () => DoSurveyScreen()),
-          GetPage(name: '/splash', page: () => SplashScreen())
+          GetPage(name: '/splash', page: () => SplashScreen()),
+          GetPage(name: '/dashboard', page: () => EventDashboard())
         ],
         localizationsDelegates: [
           S.delegate,

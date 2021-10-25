@@ -102,6 +102,17 @@ class ApiController {
     }
   }
 
+  Future<Map<String, dynamic>> dowloadEventData(dynamic event) async {
+    ApiProvider apiProvider = ApiProvider();
+    try {
+      final String data = json.encode(event);
+
+      return await apiProvider.postDown(baseUrl + '/download', data);
+    } on Error catch (e) {
+      throw Exception('Failed to load post ' + e.toString());
+    }
+  }
+
   Future<Map<String, dynamic>> signUp(String email, String password,
       String? device_key, String userName, String image64) async {
     ApiProvider apiProvider = ApiProvider();

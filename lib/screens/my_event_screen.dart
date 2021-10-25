@@ -91,9 +91,47 @@ class _MyEventScreenState extends State<MyEventScreen> {
                   else {
                     List events = List.of(
                         jsonDecode(snapshot.data!.data.toString())["events"]);
-
-                    return GridEvent(
-                      events: events,
+                    List eventOff = [];
+                    List eventStart = [];
+                    List eventComplete = [];
+                    for (var event in events) {
+                      if (event["status"] == 1) {
+                        eventStart.add(event);
+                      } else {
+                        if (event["status"] == 2) {
+                          eventOff.add(event);
+                        } else {
+                          if (event["status"] == 3) {
+                            eventComplete.add(event);
+                          }
+                        }
+                      }
+                    }
+                    return Container(
+                      height: MediaQuery.of(context).size.height * 0.6,
+                      child: Column(
+                        children: [
+                          Text("Waiting"),
+                          GridEvent(
+                            events: eventOff,
+                            action: () {},
+                          ),
+                          Divider(),
+                          Text("Start"),
+                          GridEvent(
+                            events: eventStart,
+                            action: () {},
+                          ),
+                          Divider(),
+                          Text("Completed"),
+                          GridEvent(
+                            events: eventComplete,
+                            action: (id) {
+                              Get.toNamed("/dashboard", arguments: [id]);
+                            },
+                          ),
+                        ],
+                      ),
                     );
                   }
               }
